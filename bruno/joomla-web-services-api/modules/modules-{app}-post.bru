@@ -12,34 +12,75 @@ post {
 
 body:json {
   {
-    "access": "",
-    "assigned": [],
-    "assignment": "",
-    "client_id": "",
-    "language": "",
-    "module": "",
-    "note": "",
-    "ordering": "",
+    "access": "{{module_access}}",
+    "assigned": [
+      "101",
+      "105"
+    ],
+    "assignment": "{{module_assignment}}",
+    "client_id": "{{module_client_id}}",
+    "language": "{{module_language}}",
+    "module": "{{module_module}}",
+    "note": "{{module_note}}",
+    "ordering": "{{module_ordering}}",
     "params": {
-      "bootstrap_size": "",
-      "cache": "",
-      "cache_time": "",
-      "cachemode": "",
-      "count": "",
+      "bootstrap_size": "0",
+      "cache": "1",
+      "cache_time": "900",
+      "cachemode": "static",
+      "count": "10",
       "header_class": "",
-      "header_tag": "",
-      "layout": "",
-      "module_tag": "",
+      "header_tag": "h3",
+      "layout": "_:default",
+      "module_tag": "div",
       "moduleclass_sfx": "",
-      "style": ""
+      "style": "0"
     },
-    "position": "",
-    "publish_down": "",
-    "publish_up": "",
-    "published": "",
-    "showtitle": "",
-    "title": ""
+    "position": "{{module_position}}",
+    "publish_down": "{{module_publish_down}}",
+    "publish_up": "{{module_publish_up}}",
+    "published": "{{module_published}}",
+    "showtitle": "{{module_showtitle}}",
+    "title": "{{module_title}}"
   }
+}
+
+vars:pre-request {
+  app: site
+  module_access: {{module_access}}
+  module_assignment: {{module_assignment}}
+  module_client_id: {{module_client_id}}
+  module_language: {{module_language}}
+  module_module: {{module_module}}
+  module_note: {{module_note}}
+  module_ordering: {{module_ordering}}
+  module_position: {{module_position}}
+  module_publish_down: {{module_publish_down}}
+  module_publish_up: {{module_publish_up}}
+  module_published: {{module_published}}
+  module_showtitle: {{module_showtitle}}
+  module_title: {{module_title}}
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("module_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("module_title"));
+  });
 }
 
 example {

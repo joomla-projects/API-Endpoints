@@ -12,20 +12,49 @@ post {
 
 body:json {
   {
-    "alias": "",
-    "catid": 0,
-    "clicks": 0,
-    "custombannercode": "",
-    "description": "",
-    "metakey": "",
-    "name": "",
+    "catid": {{banner_catid}},
+    "clicks": {{banner_clicks}},
+    "custombannercode": "{{banner_custombannercode}}",
+    "description": "{{banner_description}}",
+    "metakey": "{{banner_metakey}}",
+    "name": "{{banner_name}}",
     "params": {
-      "alt": "",
-      "height": 0,
-      "imageurl": "",
-      "width": 0
+      "alt": "Managed user-facing alliance",
+      "height": 480,
+      "imageurl": "images/banners/banner.jpg",
+      "width": 640
     }
   }
+}
+
+vars:pre-request {
+  banner_catid: 3
+  banner_clicks: 0
+  banner_custombannercode: 
+  banner_description: Some description of this Banner.
+  banner_metakey: some keywords
+  banner_name: Name for this Banner
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("banner_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("name matches", function() {
+    expect(res.body.data.attributes.name).to.equal(bru.getVar("banner_name"));
+  });
 }
 
 example {

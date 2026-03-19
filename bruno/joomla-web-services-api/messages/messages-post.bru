@@ -12,12 +12,41 @@ post {
 
 body:json {
   {
-    "message": "",
-    "state": 0,
-    "subject": "",
-    "user_id_from": 0,
-    "user_id_to": 0
+    "message": "{{message_message}}",
+    "state": {{message_state}},
+    "subject": "{{message_subject}}",
+    "user_id_from": {{message_user_id_from}},
+    "user_id_to": {{message_user_id_to}}
   }
+}
+
+vars:pre-request {
+  message_message: <p>text</p>
+  message_state: 0
+  message_subject: text
+  message_user_id_from: 773
+  message_user_id_to: 772
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("message_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("subject matches", function() {
+    expect(res.body.data.attributes.subject).to.equal(bru.getVar("message_subject"));
+  });
 }
 
 example {

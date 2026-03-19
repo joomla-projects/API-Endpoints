@@ -12,23 +12,23 @@ post {
 
 body:json {
   {
-    "access": 0,
-    "context": "",
-    "default_value": "",
-    "description": "",
+    "access": {{categorie_access}},
+    "context": "{{categorie_context}}",
+    "default_value": "{{categorie_default_value}}",
+    "description": "{{categorie_description}}",
     "fieldparams": {
-      "filter": "",
-      "maxlength": 0
+      "filter": "alnum",
+      "maxlength": 40
     },
-    "group_id": 0,
-    "label": "",
-    "language": "",
-    "name": "",
-    "note": "",
+    "group_id": {{categorie_group_id}},
+    "label": "{{categorie_label}}",
+    "language": "{{categorie_language}}",
+    "name": "{{categorie_name}}",
+    "note": "{{categorie_note}}",
     "params": {
       "class": "",
-      "display": "",
-      "display_readonly": "",
+      "display": "2",
+      "display_readonly": "2",
       "hint": "",
       "label_class": "",
       "label_render_class": "",
@@ -36,14 +36,51 @@ body:json {
       "prefix": "",
       "render_class": "",
       "show_on": "",
-      "showlabel": "",
+      "showlabel": "1",
       "suffix": ""
     },
-    "required": 0,
-    "state": 0,
-    "title": "",
-    "type": ""
+    "required": {{categorie_required}},
+    "state": {{categorie_state}},
+    "title": "{{categorie_title}}",
+    "type": "{{categorie_type}}"
   }
+}
+
+vars:pre-request {
+  categorie_access: 1
+  categorie_context: com_content.categories
+  categorie_default_value: 
+  categorie_description: 
+  categorie_group_id: 0
+  categorie_label: content category field
+  categorie_language: *
+  categorie_name: content-category-field
+  categorie_note: 
+  categorie_required: 0
+  categorie_state: 1
+  categorie_title: content category field
+  categorie_type: text
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("categorie_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("categorie_title"));
+  });
 }
 
 example {

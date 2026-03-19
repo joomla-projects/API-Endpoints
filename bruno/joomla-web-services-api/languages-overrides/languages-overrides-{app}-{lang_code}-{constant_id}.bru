@@ -10,6 +10,22 @@ get {
   auth: inherit
 }
 
+vars:pre-request {
+  app: site
+  lang_code: en-GB
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+}
+
 example {
   name: 200 Response
   description: todo: response object

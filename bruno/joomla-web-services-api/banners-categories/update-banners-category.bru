@@ -1,7 +1,7 @@
 meta {
   name: Update Banners Category
   type: http
-  seq: 5
+  seq: 4
 }
 
 patch {
@@ -12,11 +12,32 @@ patch {
 
 body:json {
   {
-    "alias": "",
-    "note": "",
-    "parent_id": 0,
-    "title": ""
+    "alias": "{{category_updated_alias}}",
+    "note": "{{category_updated_note}}",
+    "parent_id": {{category_updated_parent_id}},
+    "title": "{{category_updated_title}}"
   }
+}
+
+vars:pre-request {
+  category_updated_alias: updated-category
+  category_updated_note: Updated note for this category.
+  category_updated_parent_id: 1
+  category_updated_title: Updated Category name
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("category_updated_title"));
+  });
 }
 
 example {

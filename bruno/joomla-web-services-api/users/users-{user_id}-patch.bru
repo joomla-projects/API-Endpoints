@@ -1,7 +1,7 @@
 meta {
   name: users/{user_id} (PATCH)
   type: http
-  seq: 5
+  seq: 4
 }
 
 patch {
@@ -12,11 +12,33 @@ patch {
 
 body:json {
   {
-    "email": "",
-    "groups": [],
-    "name": "",
-    "username": ""
+    "email": "{{user_updated_email}}",
+    "groups": [
+      2
+    ],
+    "name": "{{user_updated_name}}",
+    "username": "{{user_updated_username}}"
   }
+}
+
+vars:pre-request {
+  user_updated_email: {{user_updated_email}}
+  user_updated_name: {{user_updated_name}}
+  user_updated_username: {{user_updated_username}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("name updated", function() {
+    expect(res.body.data.attributes.name).to.equal(bru.getVar("user_updated_name"));
+  });
 }
 
 example {

@@ -10,6 +10,12 @@ delete {
   auth: inherit
 }
 
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
+
 example {
   name: 200 Response
   description: todo: response object

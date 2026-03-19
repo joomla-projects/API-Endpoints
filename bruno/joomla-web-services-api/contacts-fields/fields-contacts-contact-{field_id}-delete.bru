@@ -1,13 +1,19 @@
 meta {
   name: fields/contacts/contact/{field_id} (DELETE)
   type: http
-  seq: 4
+  seq: 5
 }
 
 delete {
   url: {{base_url}}/v1/fields/contacts/contact/{{field_id}}
   body: none
   auth: inherit
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
 }
 
 example {

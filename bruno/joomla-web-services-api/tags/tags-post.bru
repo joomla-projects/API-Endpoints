@@ -12,17 +12,51 @@ post {
 
 body:json {
   {
-    "access": 0,
-    "access_title": "",
-    "alias": "",
-    "description": "",
-    "language": "",
-    "note": "",
-    "parent_id": 0,
-    "path": "",
-    "published": 0,
-    "title": ""
+    "access": {{tags_access}},
+    "access_title": "{{tags_access_title}}",
+    "alias": "{{tags_alias}}",
+    "description": "{{tags_description}}",
+    "language": "{{tags_language}}",
+    "note": "{{tags_note}}",
+    "parent_id": {{tags_parent_id}},
+    "path": "{{tags_path}}",
+    "published": {{tags_published}},
+    "title": "{{tags_title}}"
   }
+}
+
+vars:pre-request {
+  tags_access: 1
+  tags_access_title: Public
+  tags_alias: test
+  tags_description: 
+  tags_language: *
+  tags_note: 
+  tags_parent_id: 1
+  tags_path: test
+  tags_published: 1
+  tags_title: test
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("tags_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("tags_title"));
+  });
 }
 
 example {

@@ -12,16 +12,44 @@ post {
 
 body:json {
   {
-    "home": "",
+    "home": "{{style_home}}",
     "params": {
-      "fluidContainer": "",
+      "fluidContainer": "0",
       "logoFile": "",
-      "sidebarLeftWidth": "",
-      "sidebarRightWidth": ""
+      "sidebarLeftWidth": "3",
+      "sidebarRightWidth": "3"
     },
-    "template": "",
-    "title": ""
+    "template": "{{style_template}}",
+    "title": "{{style_title}}"
   }
+}
+
+vars:pre-request {
+  app: site
+  style_home: {{style_home}}
+  style_template: {{style_template}}
+  style_title: {{style_title}}
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("style_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("style_title"));
+  });
 }
 
 example {

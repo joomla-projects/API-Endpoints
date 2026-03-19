@@ -12,23 +12,23 @@ post {
 
 body:json {
   {
-    "access": 0,
-    "context": "",
-    "default_value": "",
-    "description": "",
+    "access": {{article_access}},
+    "context": "{{article_context}}",
+    "default_value": "{{article_default_value}}",
+    "description": "{{article_description}}",
     "fieldparams": {
-      "filter": "",
-      "maxlength": 0
+      "filter": "alnum",
+      "maxlength": 40
     },
-    "group_id": 0,
-    "label": "",
-    "language": "",
-    "name": "",
-    "note": "",
+    "group_id": {{article_group_id}},
+    "label": "{{article_label}}",
+    "language": "{{article_language}}",
+    "name": "{{article_name}}",
+    "note": "{{article_note}}",
     "params": {
       "class": "",
-      "display": "",
-      "display_readonly": "",
+      "display": "2",
+      "display_readonly": "2",
       "hint": "",
       "label_class": "",
       "label_render_class": "",
@@ -36,14 +36,51 @@ body:json {
       "prefix": "",
       "render_class": "",
       "show_on": "",
-      "showlabel": "",
+      "showlabel": "1",
       "suffix": ""
     },
-    "required": 0,
-    "state": 0,
-    "title": "",
-    "type": ""
+    "required": {{article_required}},
+    "state": {{article_state}},
+    "title": "{{article_title}}",
+    "type": "{{article_type}}"
   }
+}
+
+vars:pre-request {
+  article_access: 1
+  article_context: com_content.article
+  article_default_value: 
+  article_description: 
+  article_group_id: 0
+  article_label: article field
+  article_language: *
+  article_name: article-field
+  article_note: 
+  article_required: 0
+  article_state: 1
+  article_title: article field
+  article_type: text
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("article_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("article_title"));
+  });
 }
 
 example {

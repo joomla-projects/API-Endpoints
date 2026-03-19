@@ -12,14 +12,39 @@ patch {
 
 body:json {
   {
-    "access": "",
-    "client_id": "",
-    "language": "",
-    "module": "",
-    "note": "",
-    "ordering": "",
-    "title": ""
+    "access": "{{module_updated_access}}",
+    "client_id": "{{module_updated_client_id}}",
+    "language": "{{module_updated_language}}",
+    "module": "{{module_updated_module}}",
+    "note": "{{module_updated_note}}",
+    "ordering": "{{module_updated_ordering}}",
+    "title": "{{module_updated_title}}"
   }
+}
+
+vars:pre-request {
+  app: site
+  module_updated_access: {{module_updated_access}}
+  module_updated_client_id: {{module_updated_client_id}}
+  module_updated_language: {{module_updated_language}}
+  module_updated_module: {{module_updated_module}}
+  module_updated_note: {{module_updated_note}}
+  module_updated_ordering: {{module_updated_ordering}}
+  module_updated_title: {{module_updated_title}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("module_updated_title"));
+  });
 }
 
 example {

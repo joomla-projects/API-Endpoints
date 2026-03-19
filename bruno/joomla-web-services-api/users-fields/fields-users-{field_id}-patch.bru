@@ -1,7 +1,7 @@
 meta {
   name: fields/users/{field_id} (PATCH)
   type: http
-  seq: 5
+  seq: 4
 }
 
 patch {
@@ -12,14 +12,38 @@ patch {
 
 body:json {
   {
-    "default_value": "",
-    "description": "",
-    "label": "",
-    "name": "",
-    "note": "",
-    "title": "",
-    "type": ""
+    "default_value": "{{field_updated_default_value}}",
+    "description": "{{field_updated_description}}",
+    "label": "{{field_updated_label}}",
+    "name": "{{field_updated_name}}",
+    "note": "{{field_updated_note}}",
+    "title": "{{field_updated_title}}",
+    "type": "{{field_updated_type}}"
   }
+}
+
+vars:pre-request {
+  field_updated_default_value: {{field_updated_default_value}}
+  field_updated_description: {{field_updated_description}}
+  field_updated_label: {{field_updated_label}}
+  field_updated_name: {{field_updated_name}}
+  field_updated_note: {{field_updated_note}}
+  field_updated_title: {{field_updated_title}}
+  field_updated_type: {{field_updated_type}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("field_updated_title"));
+  });
 }
 
 example {

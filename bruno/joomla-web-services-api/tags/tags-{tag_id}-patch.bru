@@ -1,7 +1,7 @@
 meta {
   name: tags/{tag_id} (PATCH)
   type: http
-  seq: 5
+  seq: 4
 }
 
 patch {
@@ -12,9 +12,28 @@ patch {
 
 body:json {
   {
-    "alias": "",
-    "title": ""
+    "alias": "{{tag_updated_alias}}",
+    "title": "{{tag_updated_title}}"
   }
+}
+
+vars:pre-request {
+  tag_updated_alias: {{tag_updated_alias}}
+  tag_updated_title: {{tag_updated_title}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("tag_updated_title"));
+  });
 }
 
 example {

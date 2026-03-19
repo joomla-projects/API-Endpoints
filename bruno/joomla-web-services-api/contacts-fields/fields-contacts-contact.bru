@@ -10,6 +10,15 @@ get {
   auth: inherit
 }
 
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data", function() {
+    expect(res.body).to.have.property("data");
+  });
+}
+
 example {
   name: 200 Response
   description: todo: response object

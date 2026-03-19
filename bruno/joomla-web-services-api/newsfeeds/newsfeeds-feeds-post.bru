@@ -12,10 +12,10 @@ post {
 
 body:json {
   {
-    "access": 0,
-    "alias": "",
-    "catid": 0,
-    "description": "",
+    "access": {{feed_access}},
+    "alias": "{{feed_alias}}",
+    "catid": {{feed_catid}},
+    "description": "{{feed_description}}",
     "images": {
       "float_first": "",
       "float_second": "",
@@ -26,21 +26,21 @@ body:json {
       "image_second_alt": "",
       "image_second_caption": ""
     },
-    "language": "",
-    "link": "",
+    "language": "{{feed_language}}",
+    "link": "{{feed_link}}",
     "metadata": {
       "hits": "",
       "rights": "",
       "robots": "",
       "tags": {
         "tags": "",
-        "typeAlias": ""
+        "typeAlias": null
       }
     },
-    "metadesc": "",
-    "metakey": "",
-    "name": "",
-    "ordering": 0,
+    "metadesc": "{{feed_metadesc}}",
+    "metakey": "{{feed_metakey}}",
+    "name": "{{feed_name}}",
+    "ordering": {{feed_ordering}},
     "params": {
       "feed_character_count": "",
       "feed_display_order": "",
@@ -49,8 +49,43 @@ body:json {
       "show_feed_image": "",
       "show_item_description": ""
     },
-    "published": 0
+    "published": {{feed_published}}
   }
+}
+
+vars:pre-request {
+  feed_access: 1
+  feed_alias: alias
+  feed_catid: 5
+  feed_description: 
+  feed_language: *
+  feed_link: https://samoylov/joomla/gsoc19_webservices/index.php
+  feed_metadesc: 
+  feed_metakey: 
+  feed_name: Name
+  feed_ordering: 1
+  feed_published: 1
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("feed_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("name matches", function() {
+    expect(res.body.data.attributes.name).to.equal(bru.getVar("feed_name"));
+  });
 }
 
 example {

@@ -12,19 +12,55 @@ post {
 
 body:json {
   {
-    "access": 0,
-    "description": "",
-    "image": "",
-    "lang_code": "",
-    "metadesc": "",
-    "metakey": "",
-    "ordering": 0,
-    "published": 0,
-    "sef": "",
-    "sitename": "",
-    "title": "",
-    "title_native": ""
+    "access": {{content_access}},
+    "description": "{{content_description}}",
+    "image": "{{content_image}}",
+    "lang_code": "{{content_lang_code}}",
+    "metadesc": "{{content_metadesc}}",
+    "metakey": "{{content_metakey}}",
+    "ordering": {{content_ordering}},
+    "published": {{content_published}},
+    "sef": "{{content_sef}}",
+    "sitename": "{{content_sitename}}",
+    "title": "{{content_title}}",
+    "title_native": "{{content_title_native}}"
   }
+}
+
+vars:pre-request {
+  content_access: 1
+  content_description: 
+  content_image: fr_FR
+  content_lang_code: fr-FR
+  content_metadesc: 
+  content_metakey: 
+  content_ordering: 1
+  content_published: 0
+  content_sef: fk
+  content_sitename: 
+  content_title: French (FR)
+  content_title_native: Français (France)
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("content_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("content_title"));
+  });
 }
 
 example {

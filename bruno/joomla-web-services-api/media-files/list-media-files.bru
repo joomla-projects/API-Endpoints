@@ -14,6 +14,15 @@ params:query {
   ~filter[search]: 
 }
 
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data", function() {
+    expect(res.body).to.have.property("data");
+  });
+}
+
 example {
   name: 200 Response
   description: Media files listed successfully. Todo: check when path is to single file

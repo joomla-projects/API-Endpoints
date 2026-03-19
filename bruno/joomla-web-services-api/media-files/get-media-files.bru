@@ -14,6 +14,19 @@ params:query {
   ~filter[search]: 
 }
 
+vars:pre-request {
+  file_path: file_path
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data", function() {
+    expect(res.body).to.have.property("data");
+  });
+}
+
 example {
   name: 200 Response
   description: Media file or directory listing returned successfully.

@@ -1,7 +1,7 @@
 meta {
   name: newsfeeds/feeds/{feed_id} (PATCH)
   type: http
-  seq: 5
+  seq: 4
 }
 
 patch {
@@ -12,15 +12,40 @@ patch {
 
 body:json {
   {
-    "access": 0,
-    "alias": "",
-    "catid": 0,
-    "description": "",
-    "link": "",
-    "metadesc": "",
-    "metakey": "",
-    "name": ""
+    "access": {{feed_updated_access}},
+    "alias": "{{feed_updated_alias}}",
+    "catid": {{feed_updated_catid}},
+    "description": "{{feed_updated_description}}",
+    "link": "{{feed_updated_link}}",
+    "metadesc": "{{feed_updated_metadesc}}",
+    "metakey": "{{feed_updated_metakey}}",
+    "name": "{{feed_updated_name}}"
   }
+}
+
+vars:pre-request {
+  feed_updated_access: 1
+  feed_updated_alias: test2
+  feed_updated_catid: 5
+  feed_updated_description: 
+  feed_updated_link: https://samoylov/joomla/gsoc19_webservices/index.php
+  feed_updated_metadesc: 
+  feed_updated_metakey: 
+  feed_updated_name: Test
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("name updated", function() {
+    expect(res.body.data.attributes.name).to.equal(bru.getVar("feed_updated_name"));
+  });
 }
 
 example {

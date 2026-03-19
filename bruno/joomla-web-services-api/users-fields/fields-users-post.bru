@@ -12,23 +12,23 @@ post {
 
 body:json {
   {
-    "access": 0,
-    "context": "",
-    "default_value": "",
-    "description": "",
+    "access": {{user_access}},
+    "context": "{{user_context}}",
+    "default_value": "{{user_default_value}}",
+    "description": "{{user_description}}",
     "fieldparams": {
-      "filter": "",
-      "maxlength": 0
+      "filter": "alnum",
+      "maxlength": 40
     },
-    "group_id": 0,
-    "label": "",
-    "language": "",
-    "name": "",
-    "note": "",
+    "group_id": {{user_group_id}},
+    "label": "{{user_label}}",
+    "language": "{{user_language}}",
+    "name": "{{user_name}}",
+    "note": "{{user_note}}",
     "params": {
       "class": "",
-      "display": "",
-      "display_readonly": "",
+      "display": "2",
+      "display_readonly": "2",
       "hint": "",
       "label_class": "",
       "label_render_class": "",
@@ -36,14 +36,51 @@ body:json {
       "prefix": "",
       "render_class": "",
       "show_on": "",
-      "showlabel": "",
+      "showlabel": "1",
       "suffix": ""
     },
-    "required": 0,
-    "state": 0,
-    "title": "",
-    "type": ""
+    "required": {{user_required}},
+    "state": {{user_state}},
+    "title": "{{user_title}}",
+    "type": "{{user_type}}"
   }
+}
+
+vars:pre-request {
+  user_access: 1
+  user_context: com_users.user
+  user_default_value: 
+  user_description: 
+  user_group_id: 0
+  user_label: user field
+  user_language: *
+  user_name: user-field
+  user_note: 
+  user_required: 0
+  user_state: 1
+  user_title: user field
+  user_type: text
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("user_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("user_title"));
+  });
 }
 
 example {

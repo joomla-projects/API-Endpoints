@@ -1,13 +1,23 @@
 meta {
   name: Delete Media File
   type: http
-  seq: 4
+  seq: 5
 }
 
 delete {
   url: {{base_url}}/v1/media/files/{{file_path}}
   body: none
   auth: inherit
+}
+
+vars:pre-request {
+  file_path: file_path
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
 }
 
 example {

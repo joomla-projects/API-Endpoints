@@ -16,18 +16,53 @@ headers {
 
 body:json {
   {
-    "created": "",
-    "description": "",
-    "interactive_type": 0,
-    "language": "",
-    "modified": "",
-    "position": "",
-    "published": 0,
-    "target": "",
-    "title": "",
-    "type": 0,
-    "url": ""
+    "created": "{{step_created}}",
+    "description": "{{step_description}}",
+    "interactive_type": {{step_interactive_type}},
+    "language": "{{step_language}}",
+    "modified": "{{step_modified}}",
+    "position": "{{step_position}}",
+    "published": {{step_published}},
+    "target": "{{step_target}}",
+    "title": "{{step_title}}",
+    "type": {{step_type}},
+    "url": "{{step_url}}"
   }
+}
+
+vars:pre-request {
+  step_created: 2024-11-04 22:00:00
+  step_description: asynchronous
+  step_interactive_type: 1
+  step_language: *
+  step_modified: 2024-11-04 22:00:00
+  step_position: top
+  step_published: 1
+  step_target: #testElement
+  step_title: Auer Inc
+  step_type: 2
+  step_url: administrator/index.php?option=com_content&view=articles
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("step_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("step_title"));
+  });
 }
 
 example {

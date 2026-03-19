@@ -1,7 +1,7 @@
 meta {
   name: Update Banner
   type: http
-  seq: 5
+  seq: 4
 }
 
 patch {
@@ -12,20 +12,32 @@ patch {
 
 body:json {
   {
-    "alias": "",
-    "catid": 0,
-    "clicks": 0,
-    "custombannercode": "",
-    "description": "",
-    "metakey": "",
-    "name": "",
-    "params": {
-      "alt": "",
-      "height": 0,
-      "imageurl": "",
-      "width": 0
-    }
+    "alias": "{{banner_updated_alias}}",
+    "catid": {{banner_updated_catid}},
+    "description": "{{banner_updated_description}}",
+    "name": "{{banner_updated_name}}"
   }
+}
+
+vars:pre-request {
+  banner_updated_alias: updated-alias
+  banner_updated_catid: 3
+  banner_updated_description: Updated description
+  banner_updated_name: Updated name of the Banner
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("name updated", function() {
+    expect(res.body.data.attributes.name).to.equal(bru.getVar("banner_updated_name"));
+  });
 }
 
 example {
