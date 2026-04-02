@@ -1,0 +1,105 @@
+meta {
+  name: fields/groups/content/articles (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/fields/groups/content/articles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": {{article_access}},
+    "checked_out": {{article_checked_out}},
+    "context": "{{article_context}}",
+    "created_by": {{article_created_by}},
+    "description": "{{article_description}}",
+    "language": "{{article_language}}",
+    "note": "{{article_note}}",
+    "params": {
+      "display_readonly": "1"
+    },
+    "required": {{article_required}},
+    "state": {{article_state}},
+    "title": "{{article_title}}"
+  }
+}
+
+vars:pre-request {
+  article_access: 1
+  article_checked_out: 0
+  article_context: com_content.article
+  article_created_by: 0
+  article_description: 
+  article_language: *
+  article_note: 
+  article_required: 0
+  article_state: 1
+  article_title: article field group
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("article_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("article_title"));
+  });
+}
+
+example {
+  name: 200 Response (fields/groups/content/articles)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/fields/groups/content/articles
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "checked_out": 0,
+        "context": "com_content.article",
+        "created_by": 0,
+        "description": "",
+        "language": "*",
+        "note": "",
+        "params": {
+          "display_readonly": "1"
+        },
+        "required": 0,
+        "state": 1,
+        "title": "article field group"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,47 @@
+meta {
+  name: privacy/consents/{consent_id}
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/v1/privacy/consents/{{consent_id}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+}
+
+example {
+  name: 200 Response
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/privacy/consents/{{consent_id}}
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

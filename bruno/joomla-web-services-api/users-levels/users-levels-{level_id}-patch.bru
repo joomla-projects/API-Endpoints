@@ -1,0 +1,65 @@
+meta {
+  name: users/levels/{level_id} (PATCH)
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/v1/users/levels/{{level_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "{{level_updated_title}}"
+  }
+}
+
+vars:pre-request {
+  level_updated_title: {{level_updated_title}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("level_updated_title"));
+  });
+}
+
+example {
+  name: 200 Response (users/levels/{level_id})
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/users/levels/{{level_id}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "title": "Developer"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

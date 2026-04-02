@@ -1,0 +1,110 @@
+meta {
+  name: tours/{tour_id}/steps (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/tours/{{tour_id}}/steps
+  body: json
+  auth: inherit
+}
+
+headers {
+  ~cookie: 
+}
+
+body:json {
+  {
+    "created": "{{step_created}}",
+    "description": "{{step_description}}",
+    "interactive_type": {{step_interactive_type}},
+    "language": "{{step_language}}",
+    "modified": "{{step_modified}}",
+    "position": "{{step_position}}",
+    "published": {{step_published}},
+    "target": "{{step_target}}",
+    "title": "{{step_title}}",
+    "type": {{step_type}},
+    "url": "{{step_url}}"
+  }
+}
+
+vars:pre-request {
+  step_created: 2024-11-04 22:00:00
+  step_description: asynchronous
+  step_interactive_type: 1
+  step_language: *
+  step_modified: 2024-11-04 22:00:00
+  step_position: top
+  step_published: 1
+  step_target: #testElement
+  step_title: Auer Inc
+  step_type: 2
+  step_url: administrator/index.php?option=com_content&view=articles
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("step_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("step_title"));
+  });
+}
+
+example {
+  name: 200 Response (tours/{tour_id}/steps)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/tours/{{tour_id}}/steps
+    method: POST
+    mode: json
+    headers: {
+      ~cookie: 
+    }
+  
+    body:json: {
+      {
+        "created": "2024-11-04 22:00:00",
+        "description": "asynchronous",
+        "interactive_type": 1,
+        "language": "*",
+        "modified": "2024-11-04 22:00:00",
+        "position": "top",
+        "published": 1,
+        "target": "#testElement",
+        "title": "Auer Inc",
+        "type": 2,
+        "url": "administrator/index.php?option=com_content&view=articles"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

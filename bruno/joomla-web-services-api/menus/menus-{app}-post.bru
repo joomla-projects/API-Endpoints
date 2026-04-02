@@ -1,0 +1,82 @@
+meta {
+  name: menus/{app} (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/menus/{{app}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "client_id": {{menu_client_id}},
+    "description": "{{menu_description}}",
+    "menutype": "{{menu_menutype}}",
+    "title": "{{menu_title}}"
+  }
+}
+
+vars:pre-request {
+  app: site
+  menu_client_id: 0
+  menu_description: The menu for the site
+  menu_menutype: menu
+  menu_title: Menu
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("menu_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("menu_title"));
+  });
+}
+
+example {
+  name: 200 Response (menus/{app})
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/menus/{{app}}
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "client_id": 0,
+        "description": "The menu for the site",
+        "menutype": "menu",
+        "title": "Menu"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,68 @@
+meta {
+  name: tags/{tag_id} (PATCH)
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/v1/tags/{{tag_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "alias": "{{tag_updated_alias}}",
+    "title": "{{tag_updated_title}}"
+  }
+}
+
+vars:pre-request {
+  tag_updated_alias: {{tag_updated_alias}}
+  tag_updated_title: {{tag_updated_title}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("tag_updated_title"));
+  });
+}
+
+example {
+  name: 200 Response (tags/{tag_id})
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/tags/{{tag_id}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "alias": "test",
+        "title": "new title"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

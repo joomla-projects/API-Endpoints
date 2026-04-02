@@ -1,0 +1,96 @@
+meta {
+  name: tours (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/tours
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": {{tour_access}},
+    "autostart": {{tour_autostart}},
+    "description": "{{tour_description}}",
+    "extensions": "{{tour_extensions}}",
+    "language": "{{tour_language}}",
+    "published": {{tour_published}},
+    "title": "{{tour_title}}",
+    "uid": "{{tour_uid}}",
+    "url": "{{tour_url}}"
+  }
+}
+
+vars:pre-request {
+  tour_access: 1
+  tour_autostart: 0
+  tour_description: 3rd generation
+  tour_extensions: ['*']
+  tour_language: *
+  tour_published: 1
+  tour_title: Handmade Frozen Shirt
+  tour_uid: 9aa2d6cc-78b1-48e3-9cc8-463977696382
+  tour_url: administrator/index.php?option=com_content&view=articles
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("tour_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("tour_title"));
+  });
+}
+
+example {
+  name: 200 Response (tours)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/tours
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "autostart": 0,
+        "description": "3rd generation",
+        "extensions": "['*']",
+        "language": "*",
+        "published": 1,
+        "title": "Handmade Frozen Shirt",
+        "uid": "9aa2d6cc-78b1-48e3-9cc8-463977696382",
+        "url": "administrator/index.php?option=com_content&view=articles"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

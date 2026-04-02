@@ -1,0 +1,192 @@
+meta {
+  name: fields/contacts/contact (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/fields/contacts/contact
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": {{contact_access}},
+    "context": "{{contact_context}}",
+    "default_value": "{{contact_default_value}}",
+    "description": "{{contact_description}}",
+    "group_id": {{contact_group_id}},
+    "label": "{{contact_label}}",
+    "language": "{{contact_language}}",
+    "name": "{{contact_name}}",
+    "note": "{{contact_note}}",
+    "params": {
+      "class": "",
+      "display": "2",
+      "display_readonly": "2",
+      "hint": "",
+      "label_class": "",
+      "label_render_class": "",
+      "layout": "",
+      "prefix": "",
+      "render_class": "",
+      "show_on": "",
+      "showlabel": "1",
+      "suffix": ""
+    },
+    "required": {{contact_required}},
+    "state": {{contact_state}},
+    "title": "{{contact_title}}",
+    "type": "{{contact_type}}"
+  }
+}
+
+vars:pre-request {
+  contact_access: 1
+  contact_context: com_contact.contact
+  contact_default_value: 
+  contact_description: 
+  contact_group_id: 0
+  contact_label: contact field
+  contact_language: *
+  contact_name: contact-field
+  contact_note: 
+  contact_required: 0
+  contact_state: 1
+  contact_title: contact field
+  contact_type: text
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("contact_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("contact_title"));
+  });
+}
+
+example {
+  name: 200 Response (fields/contacts/contact)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/fields/contacts/contact
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "context": "com_contact.contact",
+        "default_value": "",
+        "description": "",
+        "group_id": 0,
+        "label": "contact field",
+        "language": "*",
+        "name": "contact-field",
+        "note": "",
+        "params": {
+          "class": "",
+          "display": "2",
+          "display_readonly": "2",
+          "hint": "",
+          "label_class": "",
+          "label_render_class": "",
+          "layout": "",
+          "prefix": "",
+          "render_class": "",
+          "show_on": "",
+          "showlabel": "1",
+          "suffix": ""
+        },
+        "required": 0,
+        "state": 1,
+        "title": "contact field",
+        "type": "text"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 200 Response (fields/contacts/mail)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/fields/contacts/contact
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "context": "com_contact.contact",
+        "default_value": "",
+        "description": "",
+        "group_id": 0,
+        "label": "contact field",
+        "language": "*",
+        "name": "contact-field",
+        "note": "",
+        "params": {
+          "class": "",
+          "display": "2",
+          "display_readonly": "2",
+          "hint": "",
+          "label_class": "",
+          "label_render_class": "",
+          "layout": "",
+          "prefix": "",
+          "render_class": "",
+          "show_on": "",
+          "showlabel": "1",
+          "suffix": ""
+        },
+        "required": 0,
+        "state": 1,
+        "title": "contact field",
+        "type": "text"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

@@ -1,0 +1,42 @@
+meta {
+  name: Delete Contacts Category
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/v1/contacts/categories/{{category_id}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
+
+example {
+  name: 200 Response
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/contacts/categories/{{category_id}}
+    method: DELETE
+    mode: none
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

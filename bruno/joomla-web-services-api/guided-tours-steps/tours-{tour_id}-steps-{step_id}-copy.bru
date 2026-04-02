@@ -1,0 +1,68 @@
+meta {
+  name: tours/{tour_id}/steps/{step_id} Copy
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/v1/tours/{{tour_id}}/steps/{{step_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "description": "{{step_updated_description}}",
+    "title": "{{step_updated_title}}"
+  }
+}
+
+vars:pre-request {
+  step_updated_description: {{step_updated_description}}
+  step_updated_title: {{step_updated_title}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("step_updated_title"));
+  });
+}
+
+example {
+  name: 200 Response (tours/{tour_id}/steps/{step_id} Copy)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/tours/{{tour_id}}/steps/{{step_id}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "description": "Updated web-enabled",
+        "title": "Updated Stracke - VonRueden"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

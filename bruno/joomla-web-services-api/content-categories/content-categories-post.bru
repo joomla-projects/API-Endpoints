@@ -1,0 +1,99 @@
+meta {
+  name: content/categories (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/content/categories
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": {{categorie_access}},
+    "alias": "{{categorie_alias}}",
+    "extension": "{{categorie_extension}}",
+    "language": "{{categorie_language}}",
+    "note": "{{categorie_note}}",
+    "params": {
+      "workflow_id": 1
+    },
+    "parent_id": {{categorie_parent_id}},
+    "published": {{categorie_published}},
+    "title": "{{categorie_title}}"
+  }
+}
+
+vars:pre-request {
+  categorie_access: 1
+  categorie_alias: 8c3c6268-b662-44b6-b9ab-47aa67ef3701
+  categorie_extension: com_content
+  categorie_language: *
+  categorie_note: 
+  categorie_parent_id: 1
+  categorie_published: 1
+  categorie_title: Dynamic Brand Consultant
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("categorie_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("categorie_title"));
+  });
+}
+
+example {
+  name: 200 Response (content/categories)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/content/categories
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "alias": "8c3c6268-b662-44b6-b9ab-47aa67ef3701",
+        "extension": "com_content",
+        "language": "*",
+        "note": "",
+        "params": {
+          "workflow_id": 1
+        },
+        "parent_id": 1,
+        "published": 1,
+        "title": "Dynamic Brand Consultant"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

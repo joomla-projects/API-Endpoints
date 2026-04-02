@@ -1,0 +1,49 @@
+meta {
+  name: Get Component Configuration
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v1/config/{{component_name}}
+  body: none
+  auth: inherit
+}
+
+vars:pre-request {
+  component_name: component_name
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data", function() {
+    expect(res.body).to.have.property("data");
+  });
+}
+
+example {
+  name: 200 Response
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/config/{{component_name}}
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

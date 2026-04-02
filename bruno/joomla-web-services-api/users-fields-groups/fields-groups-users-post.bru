@@ -1,0 +1,105 @@
+meta {
+  name: fields/groups/users (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/fields/groups/users
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": {{user_access}},
+    "checked_out": {{user_checked_out}},
+    "context": "{{user_context}}",
+    "created_by": {{user_created_by}},
+    "description": "{{user_description}}",
+    "language": "{{user_language}}",
+    "note": "{{user_note}}",
+    "params": {
+      "display_readonly": "1"
+    },
+    "required": {{user_required}},
+    "state": {{user_state}},
+    "title": "{{user_title}}"
+  }
+}
+
+vars:pre-request {
+  user_access: 1
+  user_checked_out: 0
+  user_context: com_users.user
+  user_created_by: 0
+  user_description: 
+  user_language: *
+  user_note: 
+  user_required: 0
+  user_state: 1
+  user_title: user field group
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("user_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("user_title"));
+  });
+}
+
+example {
+  name: 200 Response (fields/groups/users)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/fields/groups/users
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "checked_out": 0,
+        "context": "com_users.user",
+        "created_by": 0,
+        "description": "",
+        "language": "*",
+        "note": "",
+        "params": {
+          "display_readonly": "1"
+        },
+        "required": 0,
+        "state": 1,
+        "title": "user field group"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

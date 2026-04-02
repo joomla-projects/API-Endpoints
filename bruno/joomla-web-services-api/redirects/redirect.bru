@@ -1,0 +1,87 @@
+meta {
+  name: redirect
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v1/redirect
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "comment": "{{redirect_comment}}",
+    "header": {{redirect_header}},
+    "hits": {{redirect_hits}},
+    "new_url": "{{redirect_new_url}}",
+    "old_url": "{{redirect_old_url}}",
+    "published": {{redirect_published}},
+    "referer": "{{redirect_referer}}"
+  }
+}
+
+vars:pre-request {
+  redirect_comment: 
+  redirect_header: 301
+  redirect_hits: 0
+  redirect_new_url: /content/art/99
+  redirect_old_url: /content/art/12
+  redirect_published: 1
+  redirect_referer: 
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("redirect_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+}
+
+example {
+  name: 200 Response (redirect)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/redirect
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "comment": "",
+        "header": 301,
+        "hits": 0,
+        "new_url": "/content/art/99",
+        "old_url": "/content/art/12",
+        "published": 1,
+        "referer": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

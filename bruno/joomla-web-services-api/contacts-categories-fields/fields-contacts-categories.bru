@@ -1,0 +1,136 @@
+meta {
+  name: fields/contacts/categories
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/fields/contacts/categories
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": {{categorie_access}},
+    "context": "{{categorie_context}}",
+    "default_value": "{{categorie_default_value}}",
+    "description": "{{categorie_description}}",
+    "group_id": {{categorie_group_id}},
+    "label": "{{categorie_label}}",
+    "language": "{{categorie_language}}",
+    "name": "{{categorie_name}}",
+    "note": "{{categorie_note}}",
+    "params": {
+      "class": "",
+      "display": "2",
+      "display_readonly": "2",
+      "hint": "",
+      "label_class": "",
+      "label_render_class": "",
+      "layout": "",
+      "prefix": "",
+      "render_class": "",
+      "show_on": "",
+      "showlabel": "1",
+      "suffix": ""
+    },
+    "required": {{categorie_required}},
+    "state": {{categorie_state}},
+    "title": "{{categorie_title}}",
+    "type": "{{categorie_type}}"
+  }
+}
+
+vars:pre-request {
+  categorie_access: 1
+  categorie_context: com_contact.categories
+  categorie_default_value: 
+  categorie_description: 
+  categorie_group_id: 0
+  categorie_label: contact category field
+  categorie_language: *
+  categorie_name: contact-category-field
+  categorie_note: 
+  categorie_required: 0
+  categorie_state: 1
+  categorie_title: contact category field
+  categorie_type: text
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("categorie_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("categorie_title"));
+  });
+}
+
+example {
+  name: 200 Response (fields/contacts/categories)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/fields/contacts/categories
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "context": "com_contact.categories",
+        "default_value": "",
+        "description": "",
+        "group_id": 0,
+        "label": "contact category field",
+        "language": "*",
+        "name": "contact-category-field",
+        "note": "",
+        "params": {
+          "class": "",
+          "display": "2",
+          "display_readonly": "2",
+          "hint": "",
+          "label_class": "",
+          "label_render_class": "",
+          "layout": "",
+          "prefix": "",
+          "render_class": "",
+          "show_on": "",
+          "showlabel": "1",
+          "suffix": ""
+        },
+        "required": 0,
+        "state": 1,
+        "title": "contact category field",
+        "type": "text"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

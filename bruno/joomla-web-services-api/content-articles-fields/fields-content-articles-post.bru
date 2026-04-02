@@ -1,0 +1,144 @@
+meta {
+  name: fields/content/articles (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/fields/content/articles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": {{article_access}},
+    "context": "{{article_context}}",
+    "default_value": "{{article_default_value}}",
+    "description": "{{article_description}}",
+    "fieldparams": {
+      "filter": "alnum",
+      "maxlength": 40
+    },
+    "group_id": {{article_group_id}},
+    "label": "{{article_label}}",
+    "language": "{{article_language}}",
+    "name": "{{article_name}}",
+    "note": "{{article_note}}",
+    "params": {
+      "class": "",
+      "display": "2",
+      "display_readonly": "2",
+      "hint": "",
+      "label_class": "",
+      "label_render_class": "",
+      "layout": "",
+      "prefix": "",
+      "render_class": "",
+      "show_on": "",
+      "showlabel": "1",
+      "suffix": ""
+    },
+    "required": {{article_required}},
+    "state": {{article_state}},
+    "title": "{{article_title}}",
+    "type": "{{article_type}}"
+  }
+}
+
+vars:pre-request {
+  article_access: 1
+  article_context: com_content.article
+  article_default_value: 
+  article_description: 
+  article_group_id: 0
+  article_label: article field
+  article_language: *
+  article_name: article-field
+  article_note: 
+  article_required: 0
+  article_state: 1
+  article_title: article field
+  article_type: text
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("article_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("article_title"));
+  });
+}
+
+example {
+  name: 200 Response (fields/content/articles)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/fields/content/articles
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": 1,
+        "context": "com_content.article",
+        "default_value": "",
+        "description": "",
+        "fieldparams": {
+          "filter": "alnum",
+          "maxlength": 40
+        },
+        "group_id": 0,
+        "label": "article field",
+        "language": "*",
+        "name": "article-field",
+        "note": "",
+        "params": {
+          "class": "",
+          "display": "2",
+          "display_readonly": "2",
+          "hint": "",
+          "label_class": "",
+          "label_render_class": "",
+          "layout": "",
+          "prefix": "",
+          "render_class": "",
+          "show_on": "",
+          "showlabel": "1",
+          "suffix": ""
+        },
+        "required": 0,
+        "state": 1,
+        "title": "article field",
+        "type": "text"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

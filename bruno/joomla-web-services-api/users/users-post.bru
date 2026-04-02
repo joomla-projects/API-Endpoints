@@ -1,0 +1,130 @@
+meta {
+  name: users (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/users
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "block": {{user_block}},
+    "email": "{{user_email}}",
+    "groups": [
+      2
+    ],
+    "id": {{user_id}},
+    "lastResetTime": "{{user_lastResetTime}}",
+    "lastvisitDate": "{{user_lastvisitDate}}",
+    "name": "{{user_name}}",
+    "params": {
+      "admin_language": "",
+      "admin_style": "",
+      "editor": "",
+      "helpsite": "",
+      "language": "",
+      "timezone": ""
+    },
+    "password": "{{user_password}}",
+    "password2": "{{user_password2}}",
+    "registerDate": "{{user_registerDate}}",
+    "requireReset": {{user_requireReset}},
+    "resetCount": {{user_resetCount}},
+    "sendEmail": {{user_sendEmail}},
+    "username": "{{user_username}}"
+  }
+}
+
+vars:pre-request {
+  user_block: 0
+  user_email: test@example.org
+  user_id: 0
+  user_lastResetTime: 
+  user_lastvisitDate: 
+  user_name: nnn
+  user_password: qwerty
+  user_password2: qwerty
+  user_registerDate: 
+  user_requireReset: 0
+  user_resetCount: 0
+  user_sendEmail: 0
+  user_username: ad
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("user_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("name matches", function() {
+    expect(res.body.data.attributes.name).to.equal(bru.getVar("user_name"));
+  });
+}
+
+example {
+  name: 200 Response (users)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/users
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "block": 0,
+        "email": "test@example.org",
+        "groups": [
+          2
+        ],
+        "id": 0,
+        "lastResetTime": "",
+        "lastvisitDate": "",
+        "name": "nnn",
+        "params": {
+          "admin_language": "",
+          "admin_style": "",
+          "editor": "",
+          "helpsite": "",
+          "language": "",
+          "timezone": ""
+        },
+        "password": "qwerty",
+        "password2": "qwerty",
+        "registerDate": "",
+        "requireReset": 0,
+        "resetCount": 0,
+        "sendEmail": 0,
+        "username": "ad"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

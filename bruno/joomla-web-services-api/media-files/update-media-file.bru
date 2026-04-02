@@ -1,0 +1,126 @@
+meta {
+  name: Update Media File
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/v1/media/files/{{file_path}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "path": "{{file_updated_path}}",
+    "content": "{{file_updated_content}}"
+  }
+}
+
+vars:pre-request {
+  file_path: file_path
+  file_updated_path: {{file_updated_path}}
+  file_updated_content: {{file_updated_content}}
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+}
+
+example {
+  name: 200 Response
+  description: Succesful media file update.
+  
+  request: {
+    url: {{base_url}}/v1/media/files/{{file_path}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "path": "",
+        "content": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "links": {
+            "self": ""
+          },
+          "data": {
+            "type": "",
+            "id": "",
+            "attributes": {
+              "type": "",
+              "name": "",
+              "path": "",
+              "extension": "",
+              "size": 0,
+              "mime_type": "",
+              "width": 0,
+              "height": 0,
+              "create_date": "",
+              "create_date_formatted": "",
+              "modified_date": "",
+              "modified_date_formatted": "",
+              "thumb_path": "",
+              "content": "",
+              "adapter": ""
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: Media file not found.
+  
+  request: {
+    url: {{base_url}}/v1/media/files/{{file_path}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "path": "",
+        "content": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

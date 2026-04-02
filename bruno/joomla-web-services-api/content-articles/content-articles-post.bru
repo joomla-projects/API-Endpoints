@@ -1,0 +1,90 @@
+meta {
+  name: content/articles (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/content/articles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "alias": "{{article_alias}}",
+    "articletext": "{{article_articletext}}",
+    "catid": {{article_catid}},
+    "language": "{{article_language}}",
+    "metadesc": "{{article_metadesc}}",
+    "metakey": "{{article_metakey}}",
+    "title": "{{article_title}}"
+  }
+}
+
+vars:pre-request {
+  article_alias: my-article
+  article_articletext: My text
+  article_catid: 64
+  article_language: *
+  article_metadesc: 
+  article_metakey: 
+  article_title: Here's an article
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("article_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("article_title"));
+  });
+}
+
+example {
+  name: 200 Response (content/articles)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/content/articles
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "alias": "my-article",
+        "articletext": "My text",
+        "catid": 64,
+        "language": "*",
+        "metadesc": "",
+        "metakey": "",
+        "title": "Here's an article"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

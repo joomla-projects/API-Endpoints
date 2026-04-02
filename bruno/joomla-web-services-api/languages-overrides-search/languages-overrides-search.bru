@@ -1,0 +1,72 @@
+meta {
+  name: languages/overrides/search
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v1/languages/overrides/search
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "searchstring": "{{search_searchstring}}",
+    "searchtype": "{{search_searchtype}}"
+  }
+}
+
+vars:pre-request {
+  search_searchstring: {{search_searchstring}}
+  search_searchtype: {{search_searchtype}}
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("search_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+}
+
+example {
+  name: 200 Response (languages/overrides/search)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/languages/overrides/search
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "searchstring": "JLIB_APPLICATION_ERROR_SAVE_FAILED",
+        "searchtype": "constant"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

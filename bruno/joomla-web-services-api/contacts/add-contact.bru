@@ -1,0 +1,81 @@
+meta {
+  name: Add contact
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/contacts
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "alias": "{{contact_alias}}",
+    "catid": {{contact_catid}},
+    "language": "{{contact_language}}",
+    "name": "{{contact_name}}"
+  }
+}
+
+vars:pre-request {
+  contact_alias: someones-name
+  contact_catid: 4
+  contact_language: *
+  contact_name: Someones Name
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("contact_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("name matches", function() {
+    expect(res.body.data.attributes.name).to.equal(bru.getVar("contact_name"));
+  });
+}
+
+example {
+  name: 200 Response (contacts)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/contacts
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "alias": "someones-name",
+        "catid": 4,
+        "language": "*",
+        "name": "Someones Name"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

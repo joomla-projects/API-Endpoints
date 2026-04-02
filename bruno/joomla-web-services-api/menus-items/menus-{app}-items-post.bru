@@ -1,0 +1,172 @@
+meta {
+  name: menus/{app}/items (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v1/menus/{{app}}/items
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "access": "{{item_access}}",
+    "alias": "{{item_alias}}",
+    "associations": {
+      "en-GB": "",
+      "fr-FR": ""
+    },
+    "browserNav": "{{item_browserNav}}",
+    "component_id": "{{item_component_id}}",
+    "home": "{{item_home}}",
+    "language": "{{item_language}}",
+    "link": "{{item_link}}",
+    "menutype": "{{item_menutype}}",
+    "note": "{{item_note}}",
+    "params": {
+      "cancel_redirect_menuitem": "",
+      "catid": "",
+      "custom_cancel_redirect": "0",
+      "enable_category": "0",
+      "menu-anchor_css": "",
+      "menu-anchor_title": "",
+      "menu-meta_description": "",
+      "menu-meta_keywords": "",
+      "menu_image": "",
+      "menu_image_css": "",
+      "menu_show": "1",
+      "menu_text": "1",
+      "page_heading": "",
+      "page_title": "",
+      "pageclass_sfx": "",
+      "redirect_menuitem": "",
+      "robots": "",
+      "show_page_heading": ""
+    },
+    "parent_id": "{{item_parent_id}}",
+    "publish_down": "{{item_publish_down}}",
+    "publish_up": "{{item_publish_up}}",
+    "published": "{{item_published}}",
+    "template_style_id": "{{item_template_style_id}}",
+    "title": "{{item_title}}",
+    "toggle_modules_assigned": "{{item_toggle_modules_assigned}}",
+    "toggle_modules_published": "{{item_toggle_modules_published}}",
+    "type": "{{item_type}}"
+  }
+}
+
+vars:pre-request {
+  app: site
+  item_access: {{item_access}}
+  item_alias: {{item_alias}}
+  item_browserNav: {{item_browserNav}}
+  item_component_id: {{item_component_id}}
+  item_home: {{item_home}}
+  item_language: {{item_language}}
+  item_link: {{item_link}}
+  item_menutype: {{item_menutype}}
+  item_note: {{item_note}}
+  item_parent_id: {{item_parent_id}}
+  item_publish_down: {{item_publish_down}}
+  item_publish_up: {{item_publish_up}}
+  item_published: {{item_published}}
+  item_template_style_id: {{item_template_style_id}}
+  item_title: {{item_title}}
+  item_toggle_modules_assigned: {{item_toggle_modules_assigned}}
+  item_toggle_modules_published: {{item_toggle_modules_published}}
+  item_type: {{item_type}}
+}
+
+script:post-response {
+  if (res.status === 200 && res.body.data) {
+    bru.setVar("item_id", res.body.data.id);
+  }
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id, type, attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("type");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title matches", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("item_title"));
+  });
+}
+
+example {
+  name: 200 Response (menus/{app}/items)
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/menus/{{app}}/items
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "access": "1",
+        "alias": "",
+        "associations": {
+          "en-GB": "",
+          "fr-FR": ""
+        },
+        "browserNav": "0",
+        "component_id": "20",
+        "home": "0",
+        "language": "*",
+        "link": "index.php?option=com_content&view=form&layout=edit",
+        "menutype": "mainmenu",
+        "note": "",
+        "params": {
+          "cancel_redirect_menuitem": "",
+          "catid": "",
+          "custom_cancel_redirect": "0",
+          "enable_category": "0",
+          "menu-anchor_css": "",
+          "menu-anchor_title": "",
+          "menu-meta_description": "",
+          "menu-meta_keywords": "",
+          "menu_image": "",
+          "menu_image_css": "",
+          "menu_show": "1",
+          "menu_text": "1",
+          "page_heading": "",
+          "page_title": "",
+          "pageclass_sfx": "",
+          "redirect_menuitem": "",
+          "robots": "",
+          "show_page_heading": ""
+        },
+        "parent_id": "1",
+        "publish_down": "",
+        "publish_up": "",
+        "published": "1",
+        "template_style_id": "0",
+        "title": "title",
+        "toggle_modules_assigned": "1",
+        "toggle_modules_published": "1",
+        "type": "component"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

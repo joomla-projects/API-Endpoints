@@ -1,0 +1,74 @@
+meta {
+  name: messages/{message_id} (PATCH)
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/v1/messages/{{message_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "message": "{{message_updated_message}}",
+    "subject": "{{message_updated_subject}}",
+    "user_id_from": {{message_updated_user_id_from}},
+    "user_id_to": {{message_updated_user_id_to}}
+  }
+}
+
+vars:pre-request {
+  message_updated_message: <p>new text</p>
+  message_updated_subject: new text
+  message_updated_user_id_from: 773
+  message_updated_user_id_to: 772
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("subject updated", function() {
+    expect(res.body.data.attributes.subject).to.equal(bru.getVar("message_updated_subject"));
+  });
+}
+
+example {
+  name: 200 Response (messages/{message_id})
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/messages/{{message_id}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "message": "<p>new text</p>",
+        "subject": "new text",
+        "user_id_from": 773,
+        "user_id_to": 772
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

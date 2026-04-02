@@ -1,0 +1,74 @@
+meta {
+  name: Update Contacts Category}
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/v1/contacts/categories/{{category_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "alias": "{{category_updated_alias}}",
+    "note": "{{category_updated_note}}",
+    "parent_id": {{category_updated_parent_id}},
+    "title": "{{category_updated_title}}"
+  }
+}
+
+vars:pre-request {
+  category_updated_alias: 54031ae9-241c-4fc7-8a74-595547e4a1e3
+  category_updated_note: Esse voluptate consequatur et ad repellendus mollitia maiores.
+  category_updated_parent_id: 1
+  category_updated_title: Incredible Cotton Car
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("category_updated_title"));
+  });
+}
+
+example {
+  name: 200 Response (contacts/categories/{category_id})
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/contacts/categories/{{category_id}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "alias": "54031ae9-241c-4fc7-8a74-595547e4a1e3",
+        "note": "Esse voluptate consequatur et ad repellendus mollitia maiores.",
+        "parent_id": 1,
+        "title": "Incredible Cotton Car"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

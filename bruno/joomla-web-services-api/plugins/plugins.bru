@@ -1,0 +1,58 @@
+meta {
+  name: plugins
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v1/plugins
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~filter[element]: 
+  ~filter[status]: 
+  ~filter[search]: 
+  ~filter[type]: 
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data", function() {
+    expect(res.body).to.have.property("data");
+  });
+}
+
+example {
+  name: 200 Response
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/plugins
+    method: GET
+    mode: none
+    params:query: {
+      ~filter[element]: 
+      ~filter[status]: 
+      ~filter[search]: 
+      ~filter[type]: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

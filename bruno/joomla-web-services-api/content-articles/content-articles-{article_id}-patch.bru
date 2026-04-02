@@ -1,0 +1,68 @@
+meta {
+  name: content/articles/{article_id} (PATCH)
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/v1/content/articles/{{article_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "catid": {{article_updated_catid}},
+    "title": "{{article_updated_title}}"
+  }
+}
+
+vars:pre-request {
+  article_updated_catid: 64
+  article_updated_title: Updated article
+}
+
+tests {
+  test("Status is 200", function() {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has data with id and attributes", function() {
+    expect(res.body).to.have.property("data");
+    expect(res.body.data).to.have.property("id");
+    expect(res.body.data).to.have.property("attributes");
+  });
+  test("title updated", function() {
+    expect(res.body.data.attributes.title).to.equal(bru.getVar("article_updated_title"));
+  });
+}
+
+example {
+  name: 200 Response (content/articles/{article_id})
+  description: todo: response object
+  
+  request: {
+    url: {{base_url}}/v1/content/articles/{{article_id}}
+    method: PATCH
+    mode: json
+    body:json: {
+      {
+        "catid": 64,
+        "title": "Updated article"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
