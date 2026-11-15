@@ -1,0 +1,62 @@
+# Newsfeeds
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@feed_id = 1
+
+### List Newsfeeds
+# @name List Newsfeeds
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/newsfeeds/feeds
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Newsfeed
+# @name Add Newsfeed
+POST {{base_url}}/v1/newsfeeds/feeds
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "name": "Example feed",
+  "link": "https://example.org/feed",
+  "catid": 5,
+  "description": "",
+  "metadesc": "",
+  "images": {
+    "image_first": ""
+  },
+  "metadata": {
+    "robots": ""
+  },
+  "params": {
+    "show_feed_image": "1"
+  }
+}
+
+### Get Newsfeed
+# @name Get Newsfeed
+GET {{base_url}}/v1/newsfeeds/feeds/{{feed_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Newsfeed
+# @name Update Newsfeed
+PATCH {{base_url}}/v1/newsfeeds/feeds/{{feed_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "name": "Example",
+  "alias": "Example",
+  "published": 1
+}
+
+### Delete Newsfeed
+# @name Delete Newsfeed
+DELETE {{base_url}}/v1/newsfeeds/feeds/{{feed_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

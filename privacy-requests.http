@@ -1,0 +1,36 @@
+# Privacy Requests
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@request_id = 1
+
+### List Privacy Requests
+# @name List Privacy Requests
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/privacy/requests
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Privacy Request
+# @name Add Privacy Request
+POST {{base_url}}/v1/privacy/requests
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "email": "example@example.invalid"
+}
+
+### Get Privacy Request
+# @name Get Privacy Request
+GET {{base_url}}/v1/privacy/requests/{{request_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Export Privacy Request Data
+# @name Export Privacy Request Data
+GET {{base_url}}/v1/privacy/requests/export/{{request_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

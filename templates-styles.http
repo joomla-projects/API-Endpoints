@@ -1,0 +1,100 @@
+# Templates Styles
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@template_style_id = 1
+
+### List Site Template Styles
+# @name List Site Template Styles
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/templates/styles/site
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Site Template Style
+# @name Add Site Template Style
+POST {{base_url}}/v1/templates/styles/site
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "template": "cassiopeia",
+  "title": "Example style",
+  "params": {
+    "brand": "1"
+  }
+}
+
+### Get Site Template Style
+# @name Get Site Template Style
+GET {{base_url}}/v1/templates/styles/site/{{template_style_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Site Template Style
+# @name Update Site Template Style
+PATCH {{base_url}}/v1/templates/styles/site/{{template_style_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "assigned": "Example",
+  "home": 1
+}
+
+### Delete Site Template Style
+# @name Delete Site Template Style
+DELETE {{base_url}}/v1/templates/styles/site/{{template_style_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Administrator Template Styles
+# @name List Administrator Template Styles
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/templates/styles/administrator
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Administrator Template Style
+# @name Add Administrator Template Style
+POST {{base_url}}/v1/templates/styles/administrator
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "template": "atum",
+  "title": "Example style",
+  "params": {
+    "hue": "hsl(214, 63%, 20%)"
+  }
+}
+
+### Get Administrator Template Style
+# @name Get Administrator Template Style
+GET {{base_url}}/v1/templates/styles/administrator/{{template_style_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Administrator Template Style
+# @name Update Administrator Template Style
+PATCH {{base_url}}/v1/templates/styles/administrator/{{template_style_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "assigned": "Example",
+  "home": 0
+}
+
+### Delete Administrator Template Style
+# @name Delete Administrator Template Style
+DELETE {{base_url}}/v1/templates/styles/administrator/{{template_style_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

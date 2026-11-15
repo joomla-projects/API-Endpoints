@@ -1,0 +1,20 @@
+# Contacts Form
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@contact_id = 1
+
+### Send Contact Form Message
+# @name Send Contact Form Message
+POST {{base_url}}/v1/contacts/form/{{contact_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "contact_name": "Example",
+  "contact_email": "example@example.invalid",
+  "contact_subject": "Example",
+  "contact_message": "Example"
+}

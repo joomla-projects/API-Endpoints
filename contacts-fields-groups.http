@@ -1,0 +1,51 @@
+# Contacts Fields Groups
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@group_id = 1
+
+### List Contacts Field Groups
+# @name List Contacts Field Groups
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/fields/groups/contacts/contact
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Contacts Field Group
+# @name Add Contacts Field Group
+POST {{base_url}}/v1/fields/groups/contacts/contact
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example group",
+  "context": "com_contact.contact",
+  "description": ""
+}
+
+### Get Contacts Field Group
+# @name Get Contacts Field Group
+GET {{base_url}}/v1/fields/groups/contacts/contact/{{group_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Contacts Field Group
+# @name Update Contacts Field Group
+PATCH {{base_url}}/v1/fields/groups/contacts/contact/{{group_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "state": 1,
+  "created": "Example"
+}
+
+### Delete Contacts Field Group
+# @name Delete Contacts Field Group
+DELETE {{base_url}}/v1/fields/groups/contacts/contact/{{group_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

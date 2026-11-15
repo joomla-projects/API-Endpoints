@@ -1,0 +1,52 @@
+# Content Articles
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@article_id = 1
+
+### List Articles
+# @name List Articles
+# Optional query parameters: page[offset], page[limit], filter[author], filter[category], filter[search], filter[state], filter[featured], filter[tag], filter[language], filter[modified_start], filter[modified_end], filter[checked_out], filter[stage], list[ordering], list[direction]
+GET {{base_url}}/v1/content/articles
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Article
+# @name Add Article
+POST {{base_url}}/v1/content/articles
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "API Example",
+  "catid": 2,
+  "state": 0,
+  "introtext": "<p>Example</p>",
+  "fulltext": "",
+  "language": "*"
+}
+
+### Get Article
+# @name Get Article
+GET {{base_url}}/v1/content/articles/{{article_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Article
+# @name Update Article
+PATCH {{base_url}}/v1/content/articles/{{article_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Updated title"
+}
+
+### Delete Article
+# @name Delete Article
+DELETE {{base_url}}/v1/content/articles/{{article_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

@@ -1,0 +1,52 @@
+# Users Levels
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@level_id = 1
+
+### List Access Levels
+# @name List Access Levels
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/users/levels
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Access Level
+# @name Add Access Level
+POST {{base_url}}/v1/users/levels
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "API example",
+  "rules": [
+    2,
+    3
+  ]
+}
+
+### Get Access Level
+# @name Get Access Level
+GET {{base_url}}/v1/users/levels/{{level_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Access Level
+# @name Update Access Level
+PATCH {{base_url}}/v1/users/levels/{{level_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "API example",
+  "rules": "[2,3]"
+}
+
+### Delete Access Level
+# @name Delete Access Level
+DELETE {{base_url}}/v1/users/levels/{{level_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

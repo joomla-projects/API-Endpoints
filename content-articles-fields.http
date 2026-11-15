@@ -1,0 +1,55 @@
+# Content Articles Fields
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@field_id = 1
+
+### List Content Articles Fields
+# @name List Content Articles Fields
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/fields/content/articles
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Content Articles Field
+# @name Add Content Articles Field
+POST {{base_url}}/v1/fields/content/articles
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example field com_content.article",
+  "type": "text",
+  "context": "com_content.article",
+  "description": "",
+  "params": {
+    "display": "2"
+  }
+}
+
+### Get Content Articles Field
+# @name Get Content Articles Field
+GET {{base_url}}/v1/fields/content/articles/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Content Articles Field
+# @name Update Content Articles Field
+PATCH {{base_url}}/v1/fields/content/articles/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "context": "Example",
+  "group_id": 1,
+  "assigned_cat_ids": []
+}
+
+### Delete Content Articles Field
+# @name Delete Content Articles Field
+DELETE {{base_url}}/v1/fields/content/articles/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

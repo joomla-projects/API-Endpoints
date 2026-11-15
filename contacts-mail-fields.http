@@ -1,0 +1,55 @@
+# Contacts Mail Fields
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@field_id = 1
+
+### List Contacts Mail Fields
+# @name List Contacts Mail Fields
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/fields/contacts/mail
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Contacts Mail Field
+# @name Add Contacts Mail Field
+POST {{base_url}}/v1/fields/contacts/mail
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example field com_contact.mail",
+  "type": "text",
+  "context": "com_contact.mail",
+  "description": "",
+  "params": {
+    "display": "2"
+  }
+}
+
+### Get Contacts Mail Field
+# @name Get Contacts Mail Field
+GET {{base_url}}/v1/fields/contacts/mail/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Contacts Mail Field
+# @name Update Contacts Mail Field
+PATCH {{base_url}}/v1/fields/contacts/mail/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "context": "Example",
+  "group_id": 1,
+  "assigned_cat_ids": []
+}
+
+### Delete Contacts Mail Field
+# @name Delete Contacts Mail Field
+DELETE {{base_url}}/v1/fields/contacts/mail/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

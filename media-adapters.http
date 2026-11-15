@@ -1,0 +1,18 @@
+# Media Adapters
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@adapter_id = local-images
+
+### List Media Adapters
+# @name List Media Adapters
+GET {{base_url}}/v1/media/adapters
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Get Media Adapter
+# @name Get Media Adapter
+GET {{base_url}}/v1/media/adapters/{{adapter_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

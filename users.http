@@ -1,0 +1,54 @@
+# Users
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@user_id = 1
+
+### List Users
+# @name List Users
+# Optional query parameters: page[offset], page[limit], filter[state], filter[active], filter[groupid], filter[search], filter[registrationDateStart], filter[registrationDateEnd], filter[lastVisitDateStart], filter[lastVisitDateEnd]
+GET {{base_url}}/v1/users
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add User
+# @name Add User
+POST {{base_url}}/v1/users
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "name": "Example user",
+  "username": "example",
+  "email": "user@example.org",
+  "groups": [
+    2
+  ]
+}
+
+### Get User
+# @name Get User
+GET {{base_url}}/v1/users/{{user_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update User
+# @name Update User
+PATCH {{base_url}}/v1/users/{{user_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "name": "Example",
+  "username": "Example",
+  "password": "Example"
+}
+
+### Delete User
+# @name Delete User
+DELETE {{base_url}}/v1/users/{{user_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

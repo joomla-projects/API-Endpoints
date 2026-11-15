@@ -1,0 +1,96 @@
+# Menus
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@menu_id = 1
+
+### List Site Menus
+# @name List Site Menus
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/menus/site
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Site Menu
+# @name Add Site Menu
+POST {{base_url}}/v1/menus/site
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "menutype": "Example",
+  "title": "Example"
+}
+
+### Get Site Menu
+# @name Get Site Menu
+GET {{base_url}}/v1/menus/site/{{menu_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Site Menu
+# @name Update Site Menu
+PATCH {{base_url}}/v1/menus/site/{{menu_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "menutype": "Example",
+  "title": "Example",
+  "description": "Example"
+}
+
+### Delete Site Menu
+# @name Delete Site Menu
+DELETE {{base_url}}/v1/menus/site/{{menu_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Administrator Menus
+# @name List Administrator Menus
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/menus/administrator
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Administrator Menu
+# @name Add Administrator Menu
+POST {{base_url}}/v1/menus/administrator
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example admin menu",
+  "menutype": "example-admin",
+  "description": "",
+  "client_id": 1
+}
+
+### Get Administrator Menu
+# @name Get Administrator Menu
+GET {{base_url}}/v1/menus/administrator/{{menu_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Administrator Menu
+# @name Update Administrator Menu
+PATCH {{base_url}}/v1/menus/administrator/{{menu_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "menutype": "Example",
+  "title": "Example",
+  "description": "Example"
+}
+
+### Delete Administrator Menu
+# @name Delete Administrator Menu
+DELETE {{base_url}}/v1/menus/administrator/{{menu_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

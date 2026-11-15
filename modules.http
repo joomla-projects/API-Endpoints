@@ -1,0 +1,115 @@
+# Modules
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@module_id = 1
+
+### List Site Module Types
+# @name List Site Module Types
+GET {{base_url}}/v1/modules/types/site
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Administrator Module Types
+# @name List Administrator Module Types
+GET {{base_url}}/v1/modules/types/administrator
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Site Modules
+# @name List Site Modules
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/modules/site
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Site Module
+# @name Add Site Module
+POST {{base_url}}/v1/modules/site
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example module",
+  "module": "mod_custom",
+  "language": "*",
+  "params": {
+    "style": "0"
+  }
+}
+
+### Get Site Module
+# @name Get Site Module
+GET {{base_url}}/v1/modules/site/{{module_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Site Module
+# @name Update Site Module
+PATCH {{base_url}}/v1/modules/site/{{module_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "note": "Example",
+  "version_note": "Example"
+}
+
+### Delete Site Module
+# @name Delete Site Module
+DELETE {{base_url}}/v1/modules/site/{{module_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Administrator Modules
+# @name List Administrator Modules
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/modules/administrator
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Administrator Module
+# @name Add Administrator Module
+POST {{base_url}}/v1/modules/administrator
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example module",
+  "module": "mod_custom",
+  "language": "*",
+  "params": {
+    "style": "0"
+  },
+  "client_id": 1
+}
+
+### Get Administrator Module
+# @name Get Administrator Module
+GET {{base_url}}/v1/modules/administrator/{{module_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Administrator Module
+# @name Update Administrator Module
+PATCH {{base_url}}/v1/modules/administrator/{{module_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "note": "Example",
+  "version_note": "Example"
+}
+
+### Delete Administrator Module
+# @name Delete Administrator Module
+DELETE {{base_url}}/v1/modules/administrator/{{module_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

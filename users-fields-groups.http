@@ -1,0 +1,51 @@
+# Users Fields Groups
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@group_id = 1
+
+### List Users Field Groups
+# @name List Users Field Groups
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/fields/groups/users
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Users Field Group
+# @name Add Users Field Group
+POST {{base_url}}/v1/fields/groups/users
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example group",
+  "context": "com_users.user",
+  "description": ""
+}
+
+### Get Users Field Group
+# @name Get Users Field Group
+GET {{base_url}}/v1/fields/groups/users/{{group_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Users Field Group
+# @name Update Users Field Group
+PATCH {{base_url}}/v1/fields/groups/users/{{group_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "state": 1,
+  "created": "Example"
+}
+
+### Delete Users Field Group
+# @name Delete Users Field Group
+DELETE {{base_url}}/v1/fields/groups/users/{{group_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

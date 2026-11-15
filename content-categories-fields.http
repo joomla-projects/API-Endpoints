@@ -1,0 +1,55 @@
+# Content Categories Fields
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@field_id = 1
+
+### List Content Categories Fields
+# @name List Content Categories Fields
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/fields/content/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Content Categories Field
+# @name Add Content Categories Field
+POST {{base_url}}/v1/fields/content/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example field com_content.categories",
+  "type": "text",
+  "context": "com_content.categories",
+  "description": "",
+  "params": {
+    "display": "2"
+  }
+}
+
+### Get Content Categories Field
+# @name Get Content Categories Field
+GET {{base_url}}/v1/fields/content/categories/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Content Categories Field
+# @name Update Content Categories Field
+PATCH {{base_url}}/v1/fields/content/categories/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "context": "Example",
+  "group_id": 1,
+  "assigned_cat_ids": []
+}
+
+### Delete Content Categories Field
+# @name Delete Content Categories Field
+DELETE {{base_url}}/v1/fields/content/categories/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

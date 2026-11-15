@@ -1,0 +1,28 @@
+# Banners Content History
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@banner_id = 1
+@version_id = 1
+
+### List Banner Versions
+# @name List Banner Versions
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/banners/{{banner_id}}/contenthistory
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Delete Banner Version
+# @name Delete Banner Version
+# {{version_id}}: ID of the version (content history record), not of the Banner.
+DELETE {{base_url}}/v1/banners/{{version_id}}/contenthistory
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Keep Banner Version
+# @name Keep Banner Version
+# {{version_id}}: ID of the version (content history record), not of the Banner.
+PATCH {{base_url}}/v1/banners/{{version_id}}/contenthistory/keep
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

@@ -1,0 +1,28 @@
+# Content Articles Content History
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@article_id = 1
+@version_id = 1
+
+### List Article Versions
+# @name List Article Versions
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/content/articles/{{article_id}}/contenthistory
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Delete Article Version
+# @name Delete Article Version
+# {{version_id}}: ID of the version (content history record), not of the Article.
+DELETE {{base_url}}/v1/content/articles/{{version_id}}/contenthistory
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Keep Article Version
+# @name Keep Article Version
+# {{version_id}}: ID of the version (content history record), not of the Article.
+PATCH {{base_url}}/v1/content/articles/{{version_id}}/contenthistory/keep
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

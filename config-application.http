@@ -1,0 +1,24 @@
+# Config Application
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+### Get Global Configuration
+# @name Get Global Configuration
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/config/application
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Global Configuration
+# @name Update Global Configuration
+PATCH {{base_url}}/v1/config/application
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "caching": 0,
+  "cache_handler": "Example",
+  "cache_platformprefix": false
+}

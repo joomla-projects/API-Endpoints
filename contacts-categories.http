@@ -1,0 +1,49 @@
+# Contacts Categories
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@category_id = 1
+
+### List Contacts Categories
+# @name List Contacts Categories
+# Optional query parameters: page[offset], page[limit], filter[search], filter[state]
+GET {{base_url}}/v1/contacts/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Contacts Category
+# @name Add Contacts Category
+POST {{base_url}}/v1/contacts/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example"
+}
+
+### Get Contacts Category
+# @name Get Contacts Category
+GET {{base_url}}/v1/contacts/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Contacts Category
+# @name Update Contacts Category
+PATCH {{base_url}}/v1/contacts/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "parent_id": 1,
+  "extension": "Example",
+  "title": "Example"
+}
+
+### Delete Contacts Category
+# @name Delete Contacts Category
+DELETE {{base_url}}/v1/contacts/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

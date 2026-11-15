@@ -1,0 +1,112 @@
+# Menus Items
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@menu_item_id = 1
+
+### List Site Menu Items
+# @name List Site Menu Items
+# Optional query parameters: page[offset], page[limit], filter[menutype]
+GET {{base_url}}/v1/menus/site/items
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Site Menu Item
+# @name Add Site Menu Item
+POST {{base_url}}/v1/menus/site/items
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example item",
+  "alias": "example-item",
+  "menutype": "mainmenu",
+  "type": "url",
+  "link": "https://example.org"
+}
+
+### Get Site Menu Item
+# @name Get Site Menu Item
+GET {{base_url}}/v1/menus/site/items/{{menu_item_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Site Menu Item
+# @name Update Site Menu Item
+PATCH {{base_url}}/v1/menus/site/items/{{menu_item_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "alias": "Example",
+  "note": "Example"
+}
+
+### Delete Site Menu Item
+# @name Delete Site Menu Item
+DELETE {{base_url}}/v1/menus/site/items/{{menu_item_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Administrator Menu Items
+# @name List Administrator Menu Items
+# Optional query parameters: page[offset], page[limit], filter[menutype]
+GET {{base_url}}/v1/menus/administrator/items
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Administrator Menu Item
+# @name Add Administrator Menu Item
+POST {{base_url}}/v1/menus/administrator/items
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "menutype": "Example",
+  "type": "Example"
+}
+
+### Get Administrator Menu Item
+# @name Get Administrator Menu Item
+GET {{base_url}}/v1/menus/administrator/items/{{menu_item_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Administrator Menu Item
+# @name Update Administrator Menu Item
+PATCH {{base_url}}/v1/menus/administrator/items/{{menu_item_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example",
+  "alias": "Example",
+  "note": "Example"
+}
+
+### Delete Administrator Menu Item
+# @name Delete Administrator Menu Item
+DELETE {{base_url}}/v1/menus/administrator/items/{{menu_item_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Site Menu Item Types
+# @name List Site Menu Item Types
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/menus/site/items/types
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Administrator Menu Item Types
+# @name List Administrator Menu Item Types
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/menus/administrator/items/types
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

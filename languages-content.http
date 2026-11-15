@@ -1,0 +1,52 @@
+# Languages Content
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@language_id = 1
+
+### List Content Languages
+# @name List Content Languages
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/languages/content
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Content Language
+# @name Add Content Language
+POST {{base_url}}/v1/languages/content
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "lang_code": "Example",
+  "title": "Example",
+  "title_native": "Example",
+  "sef": "Example"
+}
+
+### Get Content Language
+# @name Get Content Language
+GET {{base_url}}/v1/languages/content/{{language_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Content Language
+# @name Update Content Language
+PATCH {{base_url}}/v1/languages/content/{{language_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "lang_code": "Example",
+  "title": "Example",
+  "title_native": "Example"
+}
+
+### Delete Content Language
+# @name Delete Content Language
+DELETE {{base_url}}/v1/languages/content/{{language_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

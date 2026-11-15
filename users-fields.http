@@ -1,0 +1,55 @@
+# Users Fields
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@field_id = 1
+
+### List Users Fields
+# @name List Users Fields
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/fields/users
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Users Field
+# @name Add Users Field
+POST {{base_url}}/v1/fields/users
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example field com_users.user",
+  "type": "text",
+  "context": "com_users.user",
+  "description": "",
+  "params": {
+    "display": "2"
+  }
+}
+
+### Get Users Field
+# @name Get Users Field
+GET {{base_url}}/v1/fields/users/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Users Field
+# @name Update Users Field
+PATCH {{base_url}}/v1/fields/users/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "context": "Example",
+  "group_id": 1,
+  "assigned_cat_ids": []
+}
+
+### Delete Users Field
+# @name Delete Users Field
+DELETE {{base_url}}/v1/fields/users/{{field_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

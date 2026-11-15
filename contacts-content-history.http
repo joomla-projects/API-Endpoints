@@ -1,0 +1,28 @@
+# Contacts Content History
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@contact_id = 1
+@version_id = 1
+
+### List Contact Versions
+# @name List Contact Versions
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/contacts/{{contact_id}}/contenthistory
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Delete Contact Version
+# @name Delete Contact Version
+# {{version_id}}: ID of the version (content history record), not of the Contact.
+DELETE {{base_url}}/v1/contacts/{{version_id}}/contenthistory
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Keep Contact Version
+# @name Keep Contact Version
+# {{version_id}}: ID of the version (content history record), not of the Contact.
+PATCH {{base_url}}/v1/contacts/{{version_id}}/contenthistory/keep
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

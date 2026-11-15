@@ -1,0 +1,50 @@
+# Redirects
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@redirect_id = 1
+
+### List Redirects
+# @name List Redirects
+# Optional query parameters: page[offset], page[limit]
+GET {{base_url}}/v1/redirects
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Redirect
+# @name Add Redirect
+POST {{base_url}}/v1/redirects
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "old_url": "Example",
+  "new_url": "Example"
+}
+
+### Get Redirect
+# @name Get Redirect
+GET {{base_url}}/v1/redirects/{{redirect_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Redirect
+# @name Update Redirect
+PATCH {{base_url}}/v1/redirects/{{redirect_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "old_url": "Example",
+  "new_url": "Example",
+  "comment": "Example"
+}
+
+### Delete Redirect
+# @name Delete Redirect
+DELETE {{base_url}}/v1/redirects/{{redirect_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

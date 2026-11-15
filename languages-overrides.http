@@ -1,0 +1,91 @@
+# Languages Overrides
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@lang_code = en-GB
+@override_key = COM_EXAMPLE_KEY
+
+### List Site Language Overrides
+# @name List Site Language Overrides
+GET {{base_url}}/v1/languages/overrides/site/{{lang_code}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Site Language Override
+# @name Add Site Language Override
+POST {{base_url}}/v1/languages/overrides/site/{{lang_code}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "key": "Example"
+}
+
+### Get Site Language Override
+# @name Get Site Language Override
+GET {{base_url}}/v1/languages/overrides/site/{{lang_code}}/{{override_key}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Site Language Override
+# @name Update Site Language Override
+PATCH {{base_url}}/v1/languages/overrides/site/{{lang_code}}/{{override_key}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "key": "Example",
+  "override": "Example",
+  "both": false
+}
+
+### Delete Site Language Override
+# @name Delete Site Language Override
+DELETE {{base_url}}/v1/languages/overrides/site/{{lang_code}}/{{override_key}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### List Administrator Language Overrides
+# @name List Administrator Language Overrides
+GET {{base_url}}/v1/languages/overrides/administrator/{{lang_code}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Administrator Language Override
+# @name Add Administrator Language Override
+POST {{base_url}}/v1/languages/overrides/administrator/{{lang_code}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "key": "Example"
+}
+
+### Get Administrator Language Override
+# @name Get Administrator Language Override
+GET {{base_url}}/v1/languages/overrides/administrator/{{lang_code}}/{{override_key}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Administrator Language Override
+# @name Update Administrator Language Override
+PATCH {{base_url}}/v1/languages/overrides/administrator/{{lang_code}}/{{override_key}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "key": "Example",
+  "override": "Example",
+  "both": false
+}
+
+### Delete Administrator Language Override
+# @name Delete Administrator Language Override
+DELETE {{base_url}}/v1/languages/overrides/administrator/{{lang_code}}/{{override_key}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

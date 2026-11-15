@@ -1,0 +1,49 @@
+# Content Categories
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@category_id = 1
+
+### List Content Categories
+# @name List Content Categories
+# Optional query parameters: page[offset], page[limit], filter[search], filter[state]
+GET {{base_url}}/v1/content/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Content Category
+# @name Add Content Category
+POST {{base_url}}/v1/content/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example"
+}
+
+### Get Content Category
+# @name Get Content Category
+GET {{base_url}}/v1/content/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Content Category
+# @name Update Content Category
+PATCH {{base_url}}/v1/content/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "parent_id": 1,
+  "extension": "Example",
+  "title": "Example"
+}
+
+### Delete Content Category
+# @name Delete Content Category
+DELETE {{base_url}}/v1/content/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

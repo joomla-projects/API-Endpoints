@@ -1,0 +1,30 @@
+# Plugins
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@plugin_id = 1
+
+### List Plugins
+# @name List Plugins
+# Optional query parameters: page[offset], page[limit], filter[element], filter[status], filter[search], filter[type]
+GET {{base_url}}/v1/plugins
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Get Plugin
+# @name Get Plugin
+GET {{base_url}}/v1/plugins/{{plugin_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Plugin
+# @name Update Plugin
+PATCH {{base_url}}/v1/plugins/{{plugin_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "enabled": 1
+}

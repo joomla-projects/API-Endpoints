@@ -1,0 +1,50 @@
+# Banners
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@banner_id = 1
+
+### List Banners
+# @name List Banners
+# Optional query parameters: page[offset], page[limit], filter[state]
+GET {{base_url}}/v1/banners
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Banner
+# @name Add Banner
+POST {{base_url}}/v1/banners
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "name": "Example",
+  "catid": 1
+}
+
+### Get Banner
+# @name Get Banner
+GET {{base_url}}/v1/banners/{{banner_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Banner
+# @name Update Banner
+PATCH {{base_url}}/v1/banners/{{banner_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "name": "Example",
+  "alias": "Example",
+  "catid": 1
+}
+
+### Delete Banner
+# @name Delete Banner
+DELETE {{base_url}}/v1/banners/{{banner_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

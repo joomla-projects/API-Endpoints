@@ -1,0 +1,52 @@
+# Tags
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@tag_id = 1
+
+### List Tags
+# @name List Tags
+# Optional query parameters: page[offset], page[limit], filter[search]
+GET {{base_url}}/v1/tags
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Tag
+# @name Add Tag
+POST {{base_url}}/v1/tags
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example tag",
+  "parent_id": 1,
+  "description": "",
+  "language": "*"
+}
+
+### Get Tag
+# @name Get Tag
+GET {{base_url}}/v1/tags/{{tag_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Tag
+# @name Update Tag
+PATCH {{base_url}}/v1/tags/{{tag_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "parent_id": 1,
+  "title": "Example",
+  "note": "Example"
+}
+
+### Delete Tag
+# @name Delete Tag
+DELETE {{base_url}}/v1/tags/{{tag_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

@@ -1,0 +1,11 @@
+# Installer
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+### List Extensions
+# @name List Extensions
+# Optional query parameters: page[offset], page[limit], core, status, type
+GET {{base_url}}/v1/extensions
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

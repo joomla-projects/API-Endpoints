@@ -1,0 +1,49 @@
+# Banners Categories
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@category_id = 1
+
+### List Banners Categories
+# @name List Banners Categories
+# Optional query parameters: page[offset], page[limit], filter[search], filter[state]
+GET {{base_url}}/v1/banners/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Banners Category
+# @name Add Banners Category
+POST {{base_url}}/v1/banners/categories
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "title": "Example"
+}
+
+### Get Banners Category
+# @name Get Banners Category
+GET {{base_url}}/v1/banners/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Banners Category
+# @name Update Banners Category
+PATCH {{base_url}}/v1/banners/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "parent_id": 1,
+  "extension": "Example",
+  "title": "Example"
+}
+
+### Delete Banners Category
+# @name Delete Banners Category
+DELETE {{base_url}}/v1/banners/categories/{{category_id}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json

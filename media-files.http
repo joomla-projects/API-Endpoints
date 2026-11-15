@@ -1,0 +1,55 @@
+# Media Files
+#
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.0.
+# Set base_url and api_key in http-client.env.json and http-client.private.env.json.
+
+@path = local-images:/joomla_black.png
+
+### List Media Files
+# @name List Media Files
+# Optional query parameters: path, filter[search], url, temp, content, search_recursive
+GET {{base_url}}/v1/media/files
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Add Media File
+# @name Add Media File
+POST {{base_url}}/v1/media/files
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "path": "local-images:/example.txt",
+  "content": "RXhhbXBsZQ==",
+  "override": false
+}
+
+### Get Media File or List Media Folder
+# @name Get Media File or List Media Folder
+# {{path}}: Adapter ID, a colon and the path from the root of the adapter, for example `local-images:/banners/osmbanner1.png`.
+# Optional query parameters: url, temp, content, filter[search], search_recursive
+GET {{base_url}}/v1/media/files/{{path}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+
+### Update Media File
+# @name Update Media File
+# {{path}}: Adapter ID, a colon and the path from the root of the adapter, for example `local-images:/banners/osmbanner1.png`.
+PATCH {{base_url}}/v1/media/files/{{path}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
+Content-Type: application/json
+
+{
+  "path": "local-images:/example.txt",
+  "content": "RXhhbXBsZQ==",
+  "override": false
+}
+
+### Delete Media File
+# @name Delete Media File
+# {{path}}: Adapter ID, a colon and the path from the root of the adapter, for example `local-images:/banners/osmbanner1.png`.
+DELETE {{base_url}}/v1/media/files/{{path}}
+X-Joomla-Token: {{api_key}}
+Accept: application/vnd.api+json
