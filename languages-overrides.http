@@ -1,6 +1,6 @@
 # Languages Overrides
 #
-# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.1.
+# Generated from the OpenAPI spec of the Joomla Web Services API 6.2.2.
 # Set base_url and api_key in http-client.env.json and http-client.private.env.json.
 
 @lang_code = en-GB
