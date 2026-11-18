@@ -3,6 +3,25 @@
 Each release describes the core Web Services API of one Joomla minor version: release 6.2.x is for
 Joomla 6.2. A patch release (6.2.1, 6.2.2, ...) improves the description of the same API.
 
+## Unreleased
+
+Request-body defaults now say what the webservices do with an omitted field (checked on a Joomla 6.2 site and
+against the install SQL of joomla-cms `6.2-dev`):
+
+- On create, the webservices do not apply the defaults of the administrator forms. An omitted field gets the
+  default of its database column:
+  - `state` or `published` is 0 (unpublished), not 1, for articles, banners, banner clients, categories,
+    contacts, fields, field groups, content languages, menu items, modules, newsfeeds and tags;
+  - `track_impressions` and `track_clicks` of banners and banner clients are -1 (use the client default or the
+    global setting), not 0;
+  - `numarticles` of newsfeeds is 1, not 5.
+- `published` of a redirect is required: its column has no default, so saving fails without it.
+- On update (PATCH), an omitted field keeps its stored value. The `default` of the 131 top-level properties of
+  PATCH request bodies is removed, so that clients do not send it and overwrite the stored value. The form
+  default stays in `x-joomla-form.default`.
+- `list[ordering]` and `list[direction]` of the article list are described: the accepted columns, the ones that
+  give an internal server error, and the defaults (by id, descending).
+
 ## 6.2.2
 
 Response attributes now match what the API views of Joomla render (checked against joomla-cms 6.2.0 and

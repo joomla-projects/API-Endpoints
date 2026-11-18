@@ -4317,15 +4317,19 @@
             "name": "list[ordering]",
             "in": "query",
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "example": "created"
+            },
+            "description": "The column to order by: id, title, alias, catid, category_title, state, access, access_level, created, created_by, created_by_alias, author_name, modified, ordering, featured, featured_up, featured_down, language, hits, publish_up, publish_down, checked_out or checked_out_time. A value that is not one of the filter fields of the model is ignored. The filter fields author_id, category_id, level, tag, published and stage are no columns of the query, so ordering by them gives an internal server error (500); rating and rating_count only work while the vote plugin is enabled. Omitted, the articles are ordered by id, or by their featured ordering when filter[featured] is 1."
           },
           {
             "name": "list[direction]",
             "in": "query",
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "default": "desc"
+            },
+            "description": "The ordering direction, asc or desc. Omitted, the order is descending; another value gives ascending."
           }
         ],
         "responses": {
@@ -20287,7 +20291,8 @@
               },
               "example": {
                 "old_url": "Example",
-                "new_url": "Example"
+                "new_url": "Example",
+                "published": 1
               }
             }
           }
@@ -27412,9 +27417,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "state",
               "type": "list",
@@ -27818,9 +27823,9 @@
               "0",
               "1"
             ],
-            "default": "0",
+            "default": -1,
             "title": "Track Impressions",
-            "description": "Joomla form field track_impressions; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field track_impressions; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves -1 (use the client default).",
             "x-joomla-form": {
               "name": "track_impressions",
               "type": "list",
@@ -27859,9 +27864,9 @@
               "0",
               "1"
             ],
-            "default": "0",
+            "default": -1,
             "title": "Track Clicks",
-            "description": "Joomla form field track_clicks; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field track_clicks; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves -1 (use the client default).",
             "x-joomla-form": {
               "name": "track_clicks",
               "type": "list",
@@ -28096,7 +28101,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -28201,7 +28205,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Type",
             "description": "Joomla form field type; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -28331,7 +28334,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Pinned",
             "description": "If one or more Banners in a Category are pinned, they will take priority over Banners that are not pinned. For example, if two Banners in a Category are pinned and a third Banner is not pinned, the third Banner will not display if the module setting is 'Pinned, Randomise'. Only the two pinned Banners will display.",
             "x-joomla-form": {
@@ -28358,7 +28360,6 @@
               "integer",
               "string"
             ],
-            "default": "0",
             "title": "Max. Impressions",
             "description": "Joomla form field imptotal; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -28377,7 +28378,6 @@
               "integer",
               "string"
             ],
-            "default": "0",
             "title": "Total Impressions",
             "description": "Joomla form field impmade; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -28396,7 +28396,6 @@
               "integer",
               "string"
             ],
-            "default": "0",
             "title": "Total Clicks",
             "description": "Joomla form field clicks; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -28502,7 +28501,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Track Impressions",
             "description": "Joomla form field track_impressions; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -28543,7 +28541,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Track Clicks",
             "description": "Joomla form field track_clicks; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -28593,7 +28590,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Use Own Prefix",
             "description": "Joomla form field own_prefix; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -29732,9 +29728,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "state",
               "type": "list",
@@ -29850,9 +29846,9 @@
               "0",
               "1"
             ],
-            "default": "0",
+            "default": -1,
             "title": "Track Impressions",
-            "description": "Joomla form field track_impressions; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field track_impressions; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves -1 (use the global setting).",
             "x-joomla-form": {
               "name": "track_impressions",
               "type": "list",
@@ -29891,9 +29887,9 @@
               "0",
               "1"
             ],
-            "default": "0",
+            "default": -1,
             "title": "Track Clicks",
-            "description": "Joomla form field track_clicks; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field track_clicks; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves -1 (use the global setting).",
             "x-joomla-form": {
               "name": "track_clicks",
               "type": "list",
@@ -30053,7 +30049,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -30171,7 +30166,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Track Impressions",
             "description": "Joomla form field track_impressions; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -30212,7 +30206,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Track Clicks",
             "description": "Joomla form field track_clicks; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -30262,7 +30255,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Use Own Prefix",
             "description": "Joomla form field own_prefix; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -32148,9 +32140,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -32607,7 +32599,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -33087,9 +33078,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -33573,7 +33564,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -37823,7 +37813,6 @@
               "1",
               "2"
             ],
-            "default": "2",
             "title": "System Cache",
             "description": "Joomla form field caching; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -37852,7 +37841,6 @@
           },
           "cache_handler": {
             "type": "string",
-            "default": "",
             "title": "Cache Handler",
             "description": "Joomla form field cache_handler; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -37879,7 +37867,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Platform Specific Caching",
             "description": "Joomla form field cache_platformprefix; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -37910,7 +37897,6 @@
             "pattern": "^-?[0-9]+$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
             "minimum": 1,
-            "default": "15",
             "title": "Cache Time (minutes)",
             "description": "Joomla form field cachetime; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -37953,7 +37939,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Persistent Memcache(d)",
             "description": "Joomla form field memcached_persist; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -37990,7 +37975,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Memcache(d) Compression",
             "description": "Joomla form field memcached_compress; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38015,7 +37999,6 @@
           },
           "memcached_server_host": {
             "type": "string",
-            "default": "localhost",
             "title": "Memcache(d) Server Host",
             "description": "Joomla form field memcached_server_host; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38037,7 +38020,6 @@
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
             "minimum": 1,
             "maximum": 65535,
-            "default": "11211",
             "title": "Memcache(d) Server Port",
             "description": "Joomla form field memcached_server_port; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38067,7 +38049,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Persistent Redis",
             "description": "Joomla form field redis_persist; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38092,7 +38073,6 @@
           },
           "redis_server_host": {
             "type": "string",
-            "default": "localhost",
             "title": "Redis Server Host/Sock",
             "description": "Joomla form field redis_server_host; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38114,7 +38094,6 @@
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
             "minimum": 1,
             "maximum": 65535,
-            "default": "6379",
             "title": "Redis Server Port",
             "description": "Port discarded if connecting to Redis server over Unix sockets.",
             "x-joomla-form": {
@@ -38154,7 +38133,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "0",
             "title": "Redis Database",
             "description": "Joomla form field redis_server_db; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38237,7 +38215,6 @@
           },
           "dbprefix": {
             "type": "string",
-            "default": "jos_",
             "title": "Database Tables Prefix",
             "description": "Joomla form field dbprefix; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38264,7 +38241,6 @@
               "1",
               "2"
             ],
-            "default": "0",
             "title": "Connection Encryption",
             "description": "Joomla form field dbencryption; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38331,7 +38307,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Verify Server Certificate",
             "description": "Joomla form field dbsslverifyservercert; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38394,7 +38369,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Debug System",
             "description": "Use it only for troubleshooting, ideally on <em>private</em> copies of your site. The more technical information displayed in this mode can be a security risk if left enabled on live sites. Remember to publish the \"System - Debug\" plugin to get detailed information on each page being loaded.",
             "x-joomla-form": {
@@ -38431,7 +38405,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Debug Language",
             "description": "Displays <strong><code>??</code></strong> around a language string constant when the string is not present in the currently loaded language files or <strong><code>**</code></strong> around the string value when the string is present. If none of the above is displayed, it could mean the text is hardcoded and needs a language string.",
             "x-joomla-form": {
@@ -38468,7 +38441,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Language Display",
             "description": "Select if you should display the language constant or the language value when debugging the language strings.",
             "x-joomla-form": {
@@ -38506,7 +38478,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Enable CORS",
             "description": "Cross-Origin Resource Sharing (CORS) enables scripts running in a browser to interact with resources from a different origin.",
             "x-joomla-form": {
@@ -38531,7 +38502,6 @@
           },
           "cors_allow_origin": {
             "type": "string",
-            "default": "*",
             "title": "Access-Control-Allow-Origin",
             "description": "Specifies the origin allowed to access Web services on this site, sent back in response to a preflight request. Default: * (=all).",
             "x-joomla-form": {
@@ -38547,7 +38517,6 @@
           },
           "cors_allow_headers": {
             "type": "string",
-            "default": "Content-Type,X-Joomla-Token,Authorization",
             "title": "Access-Control-Allow-Headers",
             "description": "Specifies the header(s) sent back in response to a preflight request. Default: Content-Type,X-Joomla-Token",
             "x-joomla-form": {
@@ -38589,7 +38558,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Behind Load Balancer",
             "description": "If your site is behind a load balancer or reverse proxy, enable this setting so that IP addresses and other configurations within Joomla automatically take this into account.",
             "x-joomla-form": {
@@ -38626,7 +38594,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Enable Outbound Proxy",
             "description": "Some hosts do not allow any network access from your site to the outside world by default and require you to manually configure an outbound proxy.",
             "x-joomla-form": {
@@ -38719,7 +38686,6 @@
           },
           "offset": {
             "type": "string",
-            "default": "UTC",
             "title": "Website Time Zone",
             "description": "Used by default to display dates and times (Joomla stores them internally as UTC). This can be different than the time zone of your server. Users can override their preferred time zone in their user profile.",
             "x-joomla-form": {
@@ -38752,7 +38718,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Send Mail",
             "description": "Joomla form field mailonline; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38788,7 +38753,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Disable Mass Mail",
             "description": "Joomla offers a Mass Mail feature which allows a user with administrator access to send an email to all users of the site. On sites with more than a few dozen users this can be problematic or time out.",
             "x-joomla-form": {
@@ -38875,7 +38839,6 @@
               "sendmail",
               "smtp"
             ],
-            "default": "mail",
             "title": "Mailer",
             "description": "Joomla form field mailer; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38905,7 +38868,6 @@
           },
           "sendmail": {
             "type": "string",
-            "default": "/usr/sbin/sendmail",
             "title": "Sendmail Path",
             "description": "Joomla form field sendmail; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38920,7 +38882,6 @@
           },
           "smtphost": {
             "type": "string",
-            "default": "localhost",
             "title": "SMTP Host",
             "description": "Joomla form field smtphost; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38942,7 +38903,6 @@
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
             "minimum": 1,
             "maximum": 65535,
-            "default": "25",
             "title": "SMTP Port",
             "description": "Joomla form field smtpport; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -38966,7 +38926,6 @@
               "ssl",
               "tls"
             ],
-            "default": "none",
             "title": "SMTP Security",
             "description": "Joomla form field smtpsecure; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39009,7 +38968,6 @@
               "1",
               "2"
             ],
-            "default": "0",
             "title": "SMTP Authentication",
             "description": "Joomla form field smtpauth; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39168,7 +39126,6 @@
               "index, nofollow",
               "noindex, nofollow"
             ],
-            "default": "",
             "title": "Robots",
             "description": "Joomla form field robots; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39225,7 +39182,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Author Meta Tag",
             "description": "Joomla form field MetaAuthor; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39261,7 +39217,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Joomla Version",
             "description": "Controls whether the <code>generator</code> meta tag in the HTML document's header in the frontend and in Atom feeds includes the exact version of your Joomla site. It is recommended to hide it for security reasons.",
             "x-joomla-form": {
@@ -39298,7 +39253,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Search Engine Friendly URLs",
             "description": "Joomla URLs normally look like <code>index.php?option=com_example&task=item.display&id=1</code> which isn't easy to convey verbally or in writing. Search Engine Friendly (SEF) URLs are more human–readable, e.g. <code>index.php/example/display/something</code>.",
             "x-joomla-form": {
@@ -39335,7 +39289,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Use URL Rewriting",
             "description": "Removes the <code>index.php/</code> part from the URLs.",
             "x-joomla-form": {
@@ -39373,7 +39326,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Add Suffix to URL",
             "description": "By default, Joomla URLs are \"bare\", without an extension. This options tells Joomla to add an extension such as <code>.html</code>, <code>.feed</code> etc based on the type of content being displayed by the URL.",
             "x-joomla-form": {
@@ -39411,7 +39363,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Unicode Aliases",
             "description": "No: Joomla transliterates aliases which contain non–latin-1 characters using the transliteration engine provided by the Joomla language pack for the content's selected language, e.g. über becomes ueber for en-GB (English, Great Britain). Yes: Joomla does not transliterate aliases; the alias is used as is, e.g. über remains as–is.",
             "x-joomla-form": {
@@ -39450,7 +39401,6 @@
               "1",
               "0"
             ],
-            "default": "0",
             "title": "Site Name in Page Titles",
             "description": "Joomla form field sitename_pagetitles; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39504,7 +39454,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Gzip Page Compression",
             "description": "Joomla can automatically compress the generated HTML pages with GZip, making them smaller and increasing your site's speed score. Disable it if your server is already doing that for you or if it conflicts with third party extensions.",
             "x-joomla-form": {
@@ -39535,7 +39484,6 @@
               "simple",
               "maximum"
             ],
-            "default": "default",
             "title": "Error Reporting",
             "description": "Control whether PHP error messages should be displayed at all and how verbose they will be. On live sites use None for security reasons. Only use Maximum while troubleshooting — remember to set that back to None when you're done!",
             "x-joomla-form": {
@@ -39613,7 +39561,6 @@
           },
           "session_handler": {
             "type": "string",
-            "default": "filesystem",
             "title": "Session Handler",
             "description": "Joomla form field session_handler; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39627,7 +39574,6 @@
           },
           "session_filesystem_path": {
             "type": "string",
-            "default": "",
             "title": "Session Save Path",
             "description": "The filesystem path where session data will be stored.<br>If empty, the system's temporary directory will be used.",
             "x-joomla-form": {
@@ -39643,7 +39589,6 @@
           },
           "session_memcached_server_host": {
             "type": "string",
-            "default": "localhost",
             "title": "Memcache(d) Server Host",
             "description": "Joomla form field session_memcached_server_host; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39665,7 +39610,6 @@
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
             "minimum": 1,
             "maximum": 65535,
-            "default": "11211",
             "title": "Memcache(d) Server Port",
             "description": "Joomla form field session_memcached_server_port; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39694,7 +39638,6 @@
               "0",
               "1"
             ],
-            "default": "1",
             "title": "Persistent Redis",
             "description": "Joomla form field session_redis_persist; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39719,7 +39662,6 @@
           },
           "session_redis_server_host": {
             "type": "string",
-            "default": "localhost",
             "title": "Redis Server Host/Sock",
             "description": "Joomla form field session_redis_server_host; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39741,7 +39683,6 @@
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
             "minimum": 1,
             "maximum": 65535,
-            "default": "6379",
             "title": "Redis Server Port",
             "description": "Port discarded if connecting to Redis server over Unix sockets.",
             "x-joomla-form": {
@@ -39780,7 +39721,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "0",
             "title": "Redis Database",
             "description": "Joomla form field session_redis_server_db; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39802,7 +39742,6 @@
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
             "minimum": 1,
             "maximum": 16383,
-            "default": "15",
             "title": "Session Lifetime (minutes)",
             "description": "Joomla form field lifetime; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39831,7 +39770,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Shared Sessions",
             "description": "When enabled, a user's session is shared between the frontend and administrator sections of the site. Note that changing this value will invalidate all existing sessions on the site. This is not available when the \"Force HTTPS\" option is set to \"Administrator Only\".",
             "x-joomla-form": {
@@ -39868,7 +39806,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Track Session Metadata",
             "description": "If enabled, additional metadata about a user's session (including their username, user ID, and which application they are logged into) will be logged to the session database table.<br>If disabled, features dependent on this data will be unavailable.",
             "x-joomla-form": {
@@ -39905,7 +39842,6 @@
               "0",
               "1"
             ],
-            "default": true,
             "title": "Track Guest Session Metadata",
             "description": "If enabled, additional metadata about both registered and non registered user's session will be logged to the session database table. <br>If disabled, only data for registered user will be logged.",
             "x-joomla-form": {
@@ -39956,7 +39892,6 @@
               "0",
               "1"
             ],
-            "default": false,
             "title": "Site Offline",
             "description": "Joomla form field offline; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -39993,7 +39928,6 @@
               "1",
               "2"
             ],
-            "default": "1",
             "title": "Offline Message",
             "description": "Joomla form field display_offline_message; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -40064,7 +39998,6 @@
               "1",
               "0"
             ],
-            "default": "1",
             "title": "Frontend Editing",
             "description": "Joomla can show an overlay in the public front–end, visible only to users with edit privileges, to directly modify the configuration of each module and/or menu displayed on the site. Set to \"None\" to disable this feature.",
             "x-joomla-form": {
@@ -40094,7 +40027,6 @@
           },
           "editor": {
             "type": "string",
-            "default": "tinymce",
             "title": "Default Editor",
             "description": "This editor will be used for editing content and other rich text areas in third party extensions unless a user has chosen a different one in their user profile . This will also be the only editor available and used for users who are not already logged in (the Guest user group).",
             "x-joomla-form": {
@@ -40115,7 +40047,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "0",
             "title": "Default Captcha",
             "description": "Joomla and third party extensions can use a <a href=\"https://en.wikipedia.org/wiki/CAPTCHA\" target=\"_blank\" rel=\"noopener noreferrer\">CAPTCHA</a> to prevent abuse (spam) on public forms. Each extension can choose to use a different CAPTCHA, if more than one are available. If no selection is made this will be used by default. You can enable additional CAPTCHA methods in System, Manage, Plugins.",
             "x-joomla-form": {
@@ -40143,7 +40074,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "1",
             "title": "Default Access Level",
             "description": "Set the Access Level which will be assigned by default to newly created items.",
             "x-joomla-form": {
@@ -40186,7 +40116,6 @@
               "200",
               "500"
             ],
-            "default": "20",
             "title": "Default List Limit",
             "description": "Joomla form field list_limit; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -40266,7 +40195,6 @@
               "50",
               "100"
             ],
-            "default": "10",
             "title": "Default Feed Limit",
             "description": "How many items will be published by default in RSS and Atom feeds.",
             "x-joomla-form": {
@@ -40321,7 +40249,6 @@
               "site",
               "none"
             ],
-            "default": "none",
             "title": "Feed Email Address",
             "description": "Joomla form field feed_email; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -40375,7 +40302,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Log Almost Everything",
             "description": "Logs everything, except deprecated APIs.",
             "x-joomla-form": {
@@ -40411,7 +40337,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Log Deprecated API",
             "description": "Joomla form field log_deprecated; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -40449,9 +40374,6 @@
                 "debug"
               ]
             },
-            "default": [
-              "all"
-            ],
             "title": "Log Priorities",
             "description": "Joomla form field log_priorities; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -40504,7 +40426,6 @@
           },
           "log_categories": {
             "type": "string",
-            "default": "",
             "title": "Log Categories",
             "description": "A comma separated list of log categories to include or exclude. If empty, custom logging is disabled.",
             "x-joomla-form": {
@@ -40529,7 +40450,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Log Category Mode",
             "description": "Joomla form field log_category_mode; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -59987,9 +59907,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -61983,7 +61903,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -62215,7 +62134,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Featured",
             "description": "Joomla form field featured; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -67229,9 +67147,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished) when workflows are disabled: the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "state",
               "type": "list",
@@ -68837,7 +68755,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -69000,7 +68917,6 @@
               "integer",
               "string"
             ],
-            "default": "0",
             "title": "Ordering",
             "description": "Joomla form field ordering; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -69088,7 +69004,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Featured",
             "description": "Joomla form field featured; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -77614,9 +77529,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "state",
               "type": "list",
@@ -78607,7 +78522,6 @@
           },
           "type": {
             "type": "string",
-            "default": "text",
             "title": "Type",
             "description": "Joomla form field type; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -78632,7 +78546,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Required",
             "description": "Joomla form field required; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -78666,7 +78579,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Only Use In Subform",
             "description": "Joomla form field only_use_in_subform; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -78716,7 +78628,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -81245,9 +81156,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field state; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "state",
               "type": "list",
@@ -81859,7 +81770,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field state; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -86636,9 +86546,9 @@
               "0",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -87023,7 +86933,6 @@
               "0",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -87470,7 +87379,6 @@
               "constant",
               "value"
             ],
-            "default": "value",
             "title": "Search For",
             "description": "Joomla form field searchtype; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -88150,8 +88058,7 @@
             "description": "Nonempty base64-encoded file content. Empty/false decoded content is treated as a folder; zero-byte uploads and decoded string '0' are not reliable file creation."
           },
           "override": {
-            "type": "boolean",
-            "default": true
+            "type": "boolean"
           }
         },
         "additionalProperties": false,
@@ -117183,9 +117090,9 @@
               "0",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -117656,7 +117563,6 @@
               "0",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -117720,7 +117626,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "1",
             "title": "Parent Item",
             "description": "Joomla form field parent_id; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -117788,7 +117693,6 @@
               "1",
               "2"
             ],
-            "default": "0",
             "title": "Target Window",
             "description": "Joomla form field browserNav; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -117872,7 +117776,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Default Page",
             "description": "Joomla form field home; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -117925,7 +117828,6 @@
               "0",
               "1"
             ],
-            "default": "1",
             "title": "Unassigned Modules",
             "description": "Joomla form field toggle_modules_assigned; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -117960,7 +117862,6 @@
               "0",
               "1"
             ],
-            "default": "1",
             "title": "Unpublished Modules",
             "description": "Joomla form field toggle_modules_published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -119018,9 +118919,9 @@
               "0",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -119297,7 +119198,6 @@
               "0",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -119331,7 +119231,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "1",
             "title": "Parent Item",
             "description": "Joomla form field parent_id; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -119386,7 +119285,6 @@
           },
           "browserNav": {
             "type": "string",
-            "default": "0",
             "title": "browserNav",
             "description": "Joomla form field browserNav; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -119398,7 +119296,6 @@
           },
           "home": {
             "type": "string",
-            "default": "0",
             "title": "home",
             "description": "Joomla form field home; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -119410,7 +119307,6 @@
           },
           "access": {
             "type": "string",
-            "default": "0",
             "title": "access",
             "description": "Joomla form field access; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -119422,7 +119318,6 @@
           },
           "template_style_id": {
             "type": "string",
-            "default": "0",
             "title": "template_style_id",
             "description": "Joomla form field template_style_id; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -119434,7 +119329,6 @@
           },
           "language": {
             "type": "string",
-            "default": "*",
             "title": "language",
             "description": "Joomla form field language; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -120161,7 +120055,6 @@
             ],
             "pattern": "^-?[0-9]+$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "0",
             "title": "Recipient",
             "description": "Joomla form field user_id_to; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -138186,9 +138079,9 @@
               "0",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -138958,7 +138851,6 @@
               "0",
               "1"
             ],
-            "default": "1",
             "title": "Title",
             "description": "Joomla form field showtitle; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -138994,7 +138886,6 @@
               "0",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -139051,7 +138942,6 @@
           "position": {
             "type": "string",
             "maxLength": 50,
-            "default": "",
             "title": "Position",
             "description": "Joomla form field position; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -140114,9 +140004,9 @@
               "0",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -140862,7 +140752,6 @@
               "0",
               "1"
             ],
-            "default": "1",
             "title": "Title",
             "description": "Joomla form field showtitle; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -140898,7 +140787,6 @@
               "0",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -140955,7 +140843,6 @@
           "position": {
             "type": "string",
             "maxLength": 50,
-            "default": "",
             "title": "Position",
             "description": "Joomla form field position; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -141005,7 +140892,6 @@
           },
           "language": {
             "type": "string",
-            "default": "*",
             "title": "Language",
             "description": "Joomla form field language; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -143640,9 +143526,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -143792,9 +143678,9 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "5",
+            "default": 1,
             "title": "Number of Articles",
-            "description": "Joomla form field numarticles; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field numarticles; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 1: the form default of 5 only applies in the administrator.",
             "x-joomla-form": {
               "name": "numarticles",
               "type": "number",
@@ -144506,7 +144392,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -144658,7 +144543,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "5",
             "title": "Number of Articles",
             "description": "Joomla form field numarticles; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -144677,7 +144561,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "3600",
             "title": "Cache Time",
             "description": "Joomla form field cache_time; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -145010,7 +144893,6 @@
               "1",
               "2"
             ],
-            "default": "0",
             "title": "Language Direction",
             "description": "Joomla form field rtl; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -155602,7 +155484,6 @@
               "1",
               "0"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field enabled; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -157682,9 +157563,8 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Required: the database column has no default, so saving fails without it.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -157737,7 +157617,8 @@
         "additionalProperties": false,
         "required": [
           "old_url",
-          "new_url"
+          "new_url",
+          "published"
         ]
       },
       "com_redirect_post_v1_redirectsResponse": {
@@ -157800,7 +157681,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -157835,7 +157715,6 @@
               "integer",
               "string"
             ],
-            "default": "301",
             "title": "Redirect Status Code",
             "description": "Choose the HTTP 1.1 status code to associate with the redirect. Only status codes from 300-399 correspond to a redirect.",
             "x-joomla-form": {
@@ -159511,9 +159390,9 @@
               "2",
               "-2"
             ],
-            "default": "1",
+            "default": 0,
             "title": "Status",
-            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
+            "description": "Joomla form field published; input is validated and filtered according to x-joomla-form. Omitted on create, Joomla saves 0 (unpublished): the form default of 1 only applies in the administrator.",
             "x-joomla-form": {
               "name": "published",
               "type": "list",
@@ -160495,7 +160374,6 @@
               "2",
               "-2"
             ],
-            "default": "1",
             "title": "Status",
             "description": "Joomla form field published; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -163521,7 +163399,6 @@
             ],
             "pattern": "^(?:-?[0-9]+)?$",
             "x-input-normalization": "Joomla form accepts integer or decimal integer string; optional empty string is form-filter dependent.",
-            "default": "0",
             "title": "Default",
             "description": "Joomla form field home; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -163835,7 +163712,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Default",
             "description": "Joomla form field home; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -166951,7 +166827,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Receive System Emails",
             "description": "Joomla form field sendEmail; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -166985,7 +166860,6 @@
               "1",
               "0"
             ],
-            "default": "0",
             "title": "User Status",
             "description": "Joomla form field block; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -167019,7 +166893,6 @@
               "0",
               "1"
             ],
-            "default": "0",
             "title": "Require Password Reset",
             "description": "Joomla form field requireReset; input is validated and filtered according to x-joomla-form.",
             "x-joomla-form": {
@@ -167969,7 +167842,6 @@
               "integer",
               "string"
             ],
-            "default": "0",
             "title": "Ordering",
             "description": "Select the ordering.",
             "x-joomla-form": {
