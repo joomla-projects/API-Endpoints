@@ -3,6 +3,33 @@
 Each release describes the core Web Services API of one Joomla minor version: release 6.2.x is for
 Joomla 6.2. A patch release (6.2.1, 6.2.2, ...) improves the description of the same API.
 
+## Unreleased
+
+The `required` lists and minimal examples of POST request bodies now match what Joomla needs to save a new
+item (each minimal example was sent to a Joomla 6.2 site; the causes were checked in joomla-cms `6.2-dev`). A
+field whose database column has no default is required: without it, saving fails with "Field 'x' doesn't have
+a default value".
+
+- Banners: `description`, `custombannercode` and `params` are required. The minimal example used `catid` 1,
+  which is not a banner category: Joomla then creates a new banner category titled "1". It now uses 3.
+- Content languages: `image`, `description` and `metadesc` are required. The minimal example had an invalid
+  `lang_code`.
+- Menu items (site and administrator): `alias` is required, an empty string is accepted. Without it, saving fails
+  with "Field 'path' doesn't have a default value", as the path is copied from the alias before Joomla makes the
+  alias from the title. `link` is required for administrator menu items as well. `type` lists the accepted
+  types: an unknown type, as in the old minimal example, gives an internal server error.
+- Articles: `introtext` or `articletext` is required.
+- Required JSON objects (`params` of banners, fields, modules and template styles; `images`, `metadata` and
+  `params` of newsfeeds) need at least one property that the form knows (`minProperties: 1`): the form filter
+  drops an empty object, and saving fails.
+- Users: `groups` needs at least one group (`minItems: 1`).
+- Administrator menus and modules: `client_id` is not set by the route, as was described. Without it, Joomla saves
+  a site menu or site module.
+- Media files: the `mediatypes` query parameter is described. Without it, only image extensions are accepted, so
+  the minimal example now uploads a PNG instead of a `.txt` file.
+- Redirects: the minimal example had the same old and new URL, which Joomla rejects.
+- Messages: POST saves the message, but Joomla 6.2 answers 404.
+
 ## 6.2.2
 
 Response attributes now match what the API views of Joomla render (checked against joomla-cms 6.2.0 and
