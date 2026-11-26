@@ -21,7 +21,8 @@ Content-Type: application/json
 
 {
   "old_url": "Example",
-  "new_url": "Example"
+  "new_url": "Example",
+  "published": 1
 }
 
 ### Get Redirect
