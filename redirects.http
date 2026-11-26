@@ -20,8 +20,8 @@ Accept: application/vnd.api+json
 Content-Type: application/json
 
 {
-  "old_url": "Example",
-  "new_url": "Example",
+  "old_url": "old-page",
+  "new_url": "new-page",
   "published": 1
 }
 

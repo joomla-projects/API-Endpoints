@@ -68,8 +68,10 @@ Content-Type: application/json
 
 {
   "title": "Example",
-  "menutype": "Example",
-  "type": "Example"
+  "alias": "",
+  "menutype": "example-admin",
+  "type": "url",
+  "link": "https://example.org"
 }
 
 ### Get Administrator Menu Item

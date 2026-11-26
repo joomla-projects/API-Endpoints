@@ -21,7 +21,12 @@ Content-Type: application/json
 
 {
   "name": "Example",
-  "catid": 1
+  "catid": 3,
+  "description": "",
+  "custombannercode": "",
+  "params": {
+    "width": ""
+  }
 }
 
 ### Get Banner

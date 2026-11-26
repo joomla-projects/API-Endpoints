@@ -14,14 +14,15 @@ Accept: application/vnd.api+json
 
 ### Add Media File
 # @name Add Media File
+# Optional query parameters: mediatypes
 POST {{base_url}}/v1/media/files
 X-Joomla-Token: {{api_key}}
 Accept: application/vnd.api+json
 Content-Type: application/json
 
 {
-  "path": "local-images:/example.txt",
-  "content": "RXhhbXBsZQ==",
+  "path": "local-images:/example.png",
+  "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
   "override": false
 }
 

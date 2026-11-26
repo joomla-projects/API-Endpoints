@@ -20,10 +20,13 @@ Accept: application/vnd.api+json
 Content-Type: application/json
 
 {
-  "lang_code": "Example",
+  "lang_code": "xx-XX",
   "title": "Example",
   "title_native": "Example",
-  "sef": "Example"
+  "sef": "xx",
+  "image": "",
+  "description": "",
+  "metadesc": ""
 }
 
 ### Get Content Language
